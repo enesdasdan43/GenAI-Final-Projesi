@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MonoStep | Premium Footwear</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons for modern look -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        monoDark: '#121212',
+                        monoGold: '#D4AF37',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Smooth scrolling and premium transitions */
+        html {
+            scroll-behavior: smooth;
+        }
+        .shoe-card {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .shoe-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans antialiased overflow-x-hidden">
+
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-md border-b border-gray-100 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="text-2xl font-black tracking-widest text-monoDark">
+                        MONO<span class="text-gray-400 font-light">STEP</span>
+                    </a>
+                </div>
+                
+                <!-- Menu Links (Desktop) -->
+                <div class="hidden md:flex space-x-8 text-sm font-semibold tracking-wider uppercase text-gray-600">
+                    <a href="#koleksiyon" class="hover:text-black transition-colors">Koleksiyon</a>
+                    <a href="#hikayemiz" class="hover:text-black transition-colors">Vizyon</a>
+                    <a href="#iletisim" class="hover:text-black transition-colors">İletişim</a>
+                </div>
+
+                <!-- Action Icons -->
+                <div class="flex items-center space-x-6">
+                    <!-- Sepet -->
+                    <button onclick="openCartModal()" class="relative p-2 text-gray-700 hover:text-black transition-colors focus:outline-none">
+                        <i class="fa-solid fa-bag-shopping text-xl"></i>
+                        <span id="cart-count" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-black rounded-full hidden">0</span>
+                    </button>
+                    <!-- Mobile Menu Button -->
+                    <button class="md:hidden p-2 text-gray-700 hover:text-black focus:outline-none" onclick="toggleMobileMenu()">
+                        <i class="fa-solid fa-bars text-xl" id="menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-200 px-4 pt-2 pb-4 space-y-2">
+            <a href="#koleksiyon" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100">Koleksiyon</a>
+            <a href="#hikayemiz" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100">Vizyon</a>
+            <a href="#iletisim" onclick="toggleMobileMenu()" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-100">İletişim</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative pt-24 bg-gradient-to-b from-gray-100 to-gray-50 overflow-hidden min-h-screen flex items-center">
+        <div class="absolute inset-0 z-0 opacity-10">
+            <div class="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-black blur-3xl"></div>
+            <div class="absolute top-60 right-10 w-80 h-80 rounded-full bg-gray-400 blur-3xl"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Hero Left Text -->
+                <div class="text-left space-y-6">
+                    <span class="inline-block px-4 py-1.5 bg-black text-white text-xs font-semibold uppercase tracking-widest rounded-full">Yeni Sezon</span>
+                    <h1 class="text-5xl sm:text-7xl font-black text-monoDark leading-none tracking-tight">
+                        ZITLIĞIN <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-500 to-black">ZARAFETİ</span>
+                    </h1>
+                    <p class="text-lg text-gray-600 max-w-lg">
+                        MonoStep ile sadeliğin gücünü keşfedin. Siyahın derinliği ve beyazın kusursuzluğu, premium malzemelerle sokak modasını yeniden şekillendiriyor.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                        <a href="#koleksiyon" class="px-8 py-4 bg-monoDark hover:bg-gray-800 text-white font-semibold text-center rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                            Koleksiyonu Keşfet <i class="fa-solid fa-arrow-down ml-2"></i>
+                        </a>
+                        <a href="#iletisim" class="px-8 py-4 bg-white hover:bg-gray-100 text-monoDark font-semibold text-center rounded-xl border border-gray-200 shadow-sm transition-all duration-300">
+                            Bize Ulaşın
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Right Image Frame -->
+                <div class="relative h-[400px] sm:h-[500px] flex items-center justify-center">
+                    <div class="absolute w-72 sm:w-96 h-72 sm:h-96 bg-gray-200 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-pulse"></div>
+                    <img id="hero-shoe" src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=800&q=80" 
+                         alt="MonoStep Sneaker" 
+                         class="w-4/5 sm:w-full max-w-md h-auto object-contain drop-shadow-[0_35px_35px_rgba(0,0,0,0.25)] transform hover:rotate-2 transition-transform duration-500"
+                         onerror="this.src='https://placehold.co/600x400/121212/ffffff?text=MonoStep+Premium'">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Products Section -->
+    <section id="koleksiyon" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-4xl font-extrabold tracking-tight text-monoDark">Limitli "Zıtlık" Serisi</h2>
+                <p class="mt-4 text-lg text-gray-500">Özel el yapımı premium deri ve özel yastıklama teknolojisi ile sadece siyah ve beyazın mükemmel dengesi.</p>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 justify-center max-w-5xl mx-auto">
+                
+                <!-- Product Card 1: Black Edition -->
+                <div class="shoe-card bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm flex flex-col justify-between">
+                    <div class="relative group overflow-hidden bg-gray-100">
+                        <!-- Badge -->
+                        <span class="absolute top-4 left-4 bg-black text-white text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-lg z-10">Mat Siyah</span>
+                        <img src="https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=600&q=80" 
+                             alt="MonoStep Phantom" 
+                             class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
+                             onerror="this.src='https://placehold.co/600x400/121212/ffffff?text=MonoStep+Phantom'">
+                    </div>
+                    <div class="p-8 flex-grow flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-2xl font-bold text-monoDark">MonoStep Phantom</h3>
+                                <span class="text-xl font-extrabold text-monoDark">2.499 TL</span>
+                            </div>
+                            <p class="text-gray-500 text-sm mb-6 leading-relaxed">
+                                Gecenin karanlığından ilham alan mat siyah tasarım. Karbon fiber detaylar ve darbe emici özel dinamik taban yapısı ile adımlarınızı güçlendirin.
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <!-- Size Selector -->
+                            <div class="mb-6">
+                                <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">Beden / Numara Seçin</label>
+                                <div class="flex flex-wrap gap-2" id="sizes-black">
+                                    <button onclick="selectSize('black', 40)" class="size-btn-black border border-gray-200 hover:border-black text-sm font-semibold w-11 h-11 rounded-xl transition-all duration-200">40</button>
+                                    <button onclick="selectSize('black', 41)" class="size-btn-black border border-gray-200 hover:border-black text-sm font-semibold w-11 h-11 rounded-xl transition-all duration-200">41</button>
+                                    <button onclick="selectSize('black', 42)" class="size-btn-black border border-gray-200 hover:border-black text-sm font-semibold w-11 h-11 rounded-xl transition-all duration-200">42</button>
+                                    <button onclick="selectSize('black', 43)" class="size-btn-black border border-gray-200 hover:border-black text-sm font-semibold w-11 h-11 rounded-xl transition-all duration-200">43</button>
+                                    <button onclick="selectSize('black', 44)" class="size-btn-black border border-gray-200 hover:border-black text-sm font-semibold w-11 h-11 rounded-xl transition-all duration-200">44</button>
+                                </div>
+                            </div>
+                            <!-- Action -->
+                            <button onclick="addToCart('MonoStep Phantom (Siyah)', 2499, 'black')" class="w-full bg-monoDark hover:bg-gray-800 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center space-x-2">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                <span>Sepete Ekle</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Card 2: White Edition -->
+                <div class="shoe-card bg-white border border-gray-100 rounded-3xl overflow-hidden shadow-sm flex flex-col justify-between">
+                    <div class="relative group overflow-hidden bg-gray-100">
+                        <!-- Badge -->
+                        <span class="absolute top-4 left-4 bg-white text-black text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-lg z-10 border border-gray-200">Saf Beyaz</span>
+                        <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?auto=format&fit=crop&w=600&q=80" 
+                             alt="MonoStep Cloud" 
+                             class="w-full h-80 object-cover group-hover:scale-105 transition-transform duration-500"
+                             onerror="this.src='https://placehold.co/600x400/ffffff/121212?text=MonoStep+Cloud'">
+                    </div>
+                    <div class="p-8 flex-grow flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="text-2xl font-bold text-monoDark">MonoStep Cloud</h3>
+                                <span class="text-xl font-extrabold text-monoDark">2.499 TL</span>
+                            </div>
+                            <p class="text-gray-500 text-sm mb-6 leading-relaxed">
+                                Bulutların üzerinde yürüme hissi. İnce işçilikle tasarlanmış yumuşak napa deri yüzey, her kombine uyum sağlayan minimalist ve asil görünüm.
+                            </p>
+                        </div>
+                        
+                        <div>
+                            <!-- Size Selector -->
+                            <div class="mb-6">
+                                <label class="block text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">Beden / Numara Seçin</label>
+                                <div class="flex flex-wrap gap-2" id="sizes-white">
+                                    <button onclick="selectSize('white', 40)" class="size-btn-white border border-gray-200 hover:border-black text-sm font-semibold w-11 h-11 rounded-xl transition-all duration-200">40</button>
+                                    <button onclick="selectSize('white', 41)" class="size-btn-white border border-gray-200 hover:border-black text-sm font-semibold w-11 h-11 rounded-xl transition-all duration-200">41</button>
+                                    <button onclick="selectSize('white', 42)" class="size-btn-white border border-gray-200 hover:border-black text-sm font-semibold w-11 h-11 rounded-xl transition-all duration-200">42</button>
+                                    <button onclick="selectSize('white', 43)" class="size-btn-white border border-gray-200 hover:border-black text-sm font-semibold w-11 h-11 rounded-xl transition-all duration-200">43</button>
+                                    <button onclick="selectSize('white', 44)" class="size-btn-white border border-gray-200 hover:border-black text-sm font-semibold w-11 h-11 rounded-xl transition-all duration-200">44</button>
+                                </div>
+                            </div>
+                            <!-- Action -->
+                            <button onclick="addToCart('MonoStep Cloud (Beyaz)', 2499, 'white')" class="w-full bg-monoDark hover:bg-gray-800 text-white font-semibold py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center space-x-2">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                <span>Sepete Ekle</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Brand Story & Highlights Section -->
+    <section id="hikayemiz" class="py-24 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="grid grid-cols-2 gap-4">
+                    <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?auto=format&fit=crop&w=400&q=80" alt="Detay Tasarım" class="rounded-2xl object-cover h-64 w-full shadow-md" onerror="this.src='https://placehold.co/400x300/333/fff?text=Detay'">
+                    <img src="https://images.unsplash.com/photo-1539185441755-769473a23570?auto=format&fit=crop&w=400&q=80" alt="Taban Yapısı" class="rounded-2xl object-cover h-64 w-full shadow-md mt-8" onerror="this.src='https://placehold.co/400x300/111/fff?text=Tasarim'">
+                </div>
+                <div class="space-y-6">
+                    <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400">ÜRETİM FELSEFEMİZ</h3>
+                    <h2 class="text-4xl font-extrabold text-monoDark">Zarafet Ayrıntılarda Gizlidir</h2>
+                    <p class="text-gray-600 leading-relaxed text-lg">
+                        MonoStep sadece bir ayakkabı markası değil, bir yaşam tarzıdır. Karmaşık tasarımları, gereksiz renk cümbüşlerini bir kenara bırakıyoruz. Amacımız, en kaliteli hammaddeleri mükemmel işçilikle buluşturarak yıllarca giyebileceğiniz ikonik parçalar üretmektir.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6 pt-4">
+                        <div class="flex items-start space-x-3">
+                            <span class="text-2xl text-monoDark mt-1"><i class="fa-solid fa-feather"></i></span>
+                            <div>
+                                <h4 class="font-bold">Ultra Hafif</h4>
+                                <p class="text-sm text-gray-500">Ayakta yokmuş hissi uyandıran ergonomi.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <span class="text-2xl text-monoDark mt-1"><i class="fa-solid fa-gem"></i></span>
+                            <div>
+                                <h4 class="font-bold">Premium Malzeme</h4>
+                                <p class="text-sm text-gray-500">%100 hakiki ve dayanıklı dikişler.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Modern Cart & Order Modal -->
+    <div id="cart-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl relative animate-in fade-in zoom-in-95 duration-200">
+            <!-- Close Button -->
+            <button onclick="closeCartModal()" class="absolute top-4 right-4 text-gray-400 hover:text-black transition-colors">
+                <i class="fa-solid fa-xmark text-2xl"></i>
+            </button>
+            
+            <h3 class="text-2xl font-bold mb-6 text-monoDark flex items-center space-x-2">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span>Alışveriş Sepetiniz</span>
+            </h3>
+
+            <div id="cart-items" class="space-y-4 max-h-60 overflow-y-auto mb-6">
+                <!-- Dynamic Items will be appended here -->
+                <p class="text-gray-400 text-center py-8">Sepetiniz şu an boş.</p>
+            </div>
+
+            <div class="border-t border-gray-100 pt-4 mb-6">
+                <div class="flex justify-between items-center font-bold text-lg text-monoDark">
+                    <span>Toplam Tutar:</span>
+                    <span id="cart-total">0 TL</span>
+                </div>
+            </div>
+
+            <!-- Instant Order Form -->
+            <form id="order-form" onsubmit="handleCheckout(event)" class="space-y-4">
+                <h4 class="font-semibold text-sm text-gray-400 uppercase tracking-wider">Hızlı Sipariş / İletişim Bilgileri</h4>
+                <div>
+                    <input type="text" id="order-name" placeholder="Adınız Soyadınız" required class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:ring-1 focus:ring-black focus:outline-none">
+                </div>
+                <div>
+                    <input type="text" id="order-address" placeholder="Teslimat Adresiniz" required class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm focus:ring-1 focus:ring-black focus:outline-none">
+                </div>
+                
+                <button type="submit" class="w-full bg-monoDark hover:bg-gray-800 text-white font-bold py-4 rounded-xl transition-all duration-300 flex items-center justify-center space-x-2">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Siparişi İletişime Geçerek Tamamla</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer & Contact Section -->
+    <footer id="iletisim" class="bg-monoDark text-white pt-20 pb-10 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 pb-12 border-b border-gray-800">
+                <!-- Left Details -->
+                <div class="space-y-6">
+                    <h2 class="text-3xl font-black tracking-widest">MONO<span class="text-gray-500 font-light">STEP</span></h2>
+                    <p class="text-gray-400 max-w-md leading-relaxed">
+                        MonoStep, özgün tarzı ve sınırları aşan zarafetiyle her zaman yanınızda. Bize 7/24 dilediğiniz kanaldan ulaşabilirsiniz.
+                    </p>
+                    <div class="space-y-4 pt-4">
+                        <div class="flex items-center space-x-4">
+                            <span class="bg-gray-800 text-white p-3 rounded-xl w-12 h-12 flex items-center justify-center text-lg shadow-sm">
+                                <i class="fa-solid fa-envelope"></i>
+                            </span>
+                            <div>
+                                <p class="text-xs text-gray-500 font-bold uppercase">E-POSTA ADRESİMİZ</p>
+                                <a href="mailto:enesdasdan43@gmail.com" class="text-gray-200 hover:text-white transition-colors font-medium">enesdasdan43@gmail.com</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4">
+                            <span class="bg-gray-800 text-white p-3 rounded-xl w-12 h-12 flex items-center justify-center text-lg shadow-sm">
+                                <i class="fa-solid fa-phone"></i>
+                            </span>
+                            <div>
+                                <p class="text-xs text-gray-500 font-bold uppercase">TELEFON NUMARAMIZ</p>
+                                <a href="tel:+905455806237" class="text-gray-200 hover:text-white transition-colors font-medium">+90 545 580 62 37</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Contact Form / Message -->
+                <div class="bg-gray-900/50 p-8 rounded-3xl border border-gray-800 space-y-6">
+                    <h3 class="text-xl font-bold">Bize Hemen Mesaj Gönderin</h3>
+                    <div class="space-y-4">
+                        <textarea id="direct-message" rows="4" placeholder="Sorularınızı, numara taleplerinizi veya sipariş taleplerinizi buraya yazın..." class="w-full bg-gray-800 border border-gray-700 text-white rounded-xl p-4 text-sm focus:ring-1 focus:ring-white focus:outline-none focus:border-white placeholder-gray-500"></textarea>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button onclick="sendMailMessage()" class="flex-1 bg-white hover:bg-gray-200 text-black font-bold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center space-x-2 text-sm">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                <span>E-Posta Yolla</span>
+                            </button>
+                            <button onclick="sendWhatsAppMessage()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-3 px-6 rounded-xl transition-all duration-200 flex items-center justify-center space-x-2 text-sm">
+                                <i class="fa-brands fa-whatsapp"></i>
+                                <span>WhatsApp'tan Yaz</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright and Social Icons -->
+            <div class="flex flex-col sm:flex-row justify-between items-center pt-8 text-xs text-gray-500">
+                <p>&copy; 2026 MonoStep. Tüm Hakları Saklıdır.</p>
+                <div class="flex space-x-6 mt-4 sm:mt-0">
+                    <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-instagram text-lg"></i></a>
+                    <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-facebook text-lg"></i></a>
+                    <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-twitter text-lg"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Custom App JavaScript Logic -->
+    <script>
+        // State management
+        let cart = [];
+        let selectedSizes = {
+            black: null,
+            white: null
+        };
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('menu-icon');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                icon.className = 'fa-solid fa-xmark text-xl';
+            } else {
+                menu.classList.add('hidden');
+                icon.className = 'fa-solid fa-bars text-xl';
+            }
+        }
+
+        // Size Selection logic
+        function selectSize(color, size) {
+            // Store size
+            selectedSizes[color] = size;
+            
+            // Clear prior active states
+            const buttons = document.querySelectorAll(`.size-btn-${color}`);
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-black', 'text-white', 'border-black');
+                btn.classList.add('border-gray-200', 'text-gray-900');
+            });
+
+            // Set active state for clicked button
+            const clickedBtn = Array.from(buttons).find(btn => btn.innerText == size);
+            if (clickedBtn) {
+                clickedBtn.classList.remove('border-gray-200', 'text-gray-900');
+                clickedBtn.classList.add('bg-black', 'text-white', 'border-black');
+            }
+        }
+
+        // Cart Actions
+        function addToCart(productName, price, colorKey) {
+            const selectedSize = selectedSizes[colorKey];
+            if (!selectedSize) {
+                showToast("Lütfen bir beden/numara seçin!", "warning");
+                return;
+            }
+
+            // Push to cart array
+            cart.push({
+                name: `${productName} (No: ${selectedSize})`,
+                price: price
+            });
+
+            updateCartUI();
+            showToast("Ürün sepete eklendi!", "success");
+        }
+
+        function updateCartUI() {
+            const countElem = document.getElementById('cart-count');
+            const itemsContainer = document.getElementById('cart-items');
+            const totalElem = document.getElementById('cart-total');
+
+            // Handle badge count
+            if (cart.length > 0) {
+                countElem.innerText = cart.length;
+                countElem.classList.remove('hidden');
+            } else {
+                countElem.classList.add('hidden');
+            }
+
+            // Fill items inside modal
+            if (cart.length === 0) {
+                itemsContainer.innerHTML = `<p class="text-gray-400 text-center py-8">Sepetiniz şu an boş.</p>`;
+                totalElem.innerText = "0 TL";
+            } else {
+                itemsContainer.innerHTML = '';
+                let total = 0;
+                cart.forEach((item, index) => {
+                    total += item.price;
+                    itemsContainer.innerHTML += `
+                        <div class="flex justify-between items-center bg-gray-50 p-4 rounded-xl border border-gray-100">
+                            <div>
+                                <p class="font-bold text-sm text-monoDark">${item.name}</p>
+                                <p class="text-xs text-gray-400">${item.price} TL</p>
+                            </div>
+                            <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-700 transition-colors">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                    `;
+                });
+                totalElem.innerText = `${total.toLocaleString('tr-TR')} TL`;
+            }
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+            showToast("Ürün sepetten çıkarıldı.", "info");
+        }
+
+        // Modal Controls
+        function openCartModal() {
+            document.getElementById('cart-modal').classList.remove('hidden');
+        }
+
+        function closeCartModal() {
+            document.getElementById('cart-modal').classList.add('hidden');
+        }
+
+        // Handle Order / Checkout
+        function handleCheckout(event) {
+            event.preventDefault();
+            if (cart.length === 0) {
+                showToast("Sipariş vermek için önce sepetinize ürün ekleyin!", "warning");
+                return;
+            }
+
+            const name = document.getElementById('order-name').value;
+            const address = document.getElementById('order-address').value;
+            
+            // Build text message for WhatsApp/Mail
+            let itemDetails = cart.map(item => `- ${item.name}`).join('\n');
+            let totalVal = document.getElementById('cart-total').innerText;
+            
+            let msg = `Merhaba MonoStep! Ben *${name}*.\n\nSipariş Detaylarım:\n${itemDetails}\n\nToplam: *${totalVal}*\nTeslimat Adresi: ${address}\n\nSiparişim hakkında bilgi almak istiyorum.`;
+            
+            // Redirect to WhatsApp
+            let encodedMsg = encodeURIComponent(msg);
+            let whatsappUrl = `https://wa.me/905455806237?text=${encodedMsg}`;
+            
+            window.open(whatsappUrl, '_blank');
+            closeCartModal();
+            cart = [];
+            updateCartUI();
+            document.getElementById('order-form').reset();
+            showToast("Sipariş talebiniz iletildi!", "success");
+        }
+
+        // Direct Email Sender Helper
+        function sendMailMessage() {
+            const message = document.getElementById('direct-message').value;
+            if(!message) {
+                showToast("Lütfen göndermek için bir mesaj yazın.", "warning");
+                return;
+            }
+            const mailtoUrl = `mailto:enesdasdan43@gmail.com?subject=MonoStep%20Bilgi%20Talebi&body=${encodeURIComponent(message)}`;
+            window.location.href = mailtoUrl;
+        }
+
+        // Direct WhatsApp Sender Helper
+        function sendWhatsAppMessage() {
+            const message = document.getElementById('direct-message').value;
+            if(!message) {
+                showToast("Lütfen göndermek için bir mesaj yazın.", "warning");
+                return;
+            }
+            const whatsappUrl = `https://wa.me/905455806237?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Beautiful custom Toast Notification
+        function showToast(message, type) {
+            let toastColor = "bg-black";
+            if (type === "warning") toastColor = "bg-amber-600";
+            if (type === "success") toastColor = "bg-emerald-600";
+            if (type === "info") toastColor = "bg-blue-600";
+
+            const toast = document.createElement("div");
+            toast.className = `fixed bottom-6 right-6 ${toastColor} text-white px-6 py-3.5 rounded-2xl shadow-2xl z-50 transition-all duration-300 transform translate-y-10 opacity-0 flex items-center space-x-3 text-sm font-semibold`;
+            toast.innerHTML = `
+                <span>${message}</span>
+            `;
+            document.body.appendChild(toast);
+
+            // Trigger animation
+            setTimeout(() => {
+                toast.classList.remove('translate-y-10', 'opacity-0');
+                toast.classList.add('translate-y-0', 'opacity-100');
+            }, 50);
+
+            // Auto dismiss
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

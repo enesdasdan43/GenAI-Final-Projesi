@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KJTK2KH660"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-KJTK2KH660');</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- --- SEO BAŞLANGIÇ (PROJELER) --- -->
+    <title>Projelerim | Enes Daşdan</title>
+    <meta name="description" content="Enes Daşdan tarafından geliştirilen seçkin web ve oyun projeleri: Neon Dashboard, E-Ticaret Arayüzü, Kozmik Blog ve daha fazlası.">
+    <meta name="keywords" content="Enes Daşdan Projeleri, Web Tasarım Örnekleri, Oyun Portfolyosu, React Projeleri, Vue.js Tasarımları, Next.js Blog">
+    <meta name="author" content="Enes Daşdan">
+    <meta name="robots" content="index, follow">
+
+    <!-- Sosyal Medya Paylaşım (Open Graph) -->
+    <meta property="og:title" content="Projelerim | Enes Daşdan">
+    <meta property="og:description" content="Geliştirdiğim modern web ve oyun projelerini inceleyin.">
+    <meta property="og:image" content="IMG_3437.png.png">
+    <meta property="og:url" content="https://enesdasdan.com/projects.html">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="tr_TR">
+
+    <!-- Twitter Kartları -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Projelerim | Enes Daşdan">
+    <meta name="twitter:description" content="Geliştirdiğim modern web ve oyun projelerini inceleyin.">
+    <meta name="twitter:image" content="IMG_3437.png.png">
+    <!-- --- SEO BİTİŞ --- -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&family=Fira+Code:wght@300;400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS AYNI (Kısaltıldı) */
+        :root { --bg-color: #050505; --text-main: #ffffff; --text-muted: #a1a1aa; --primary: #7c3aed; --secondary: #d8b4fe; --glass-bg: rgba(255, 255, 255, 0.03); --glass-border: rgba(255, 255, 255, 0.1); --nav-bg: rgba(5, 5, 5, 0.85); --card-shadow: 0 10px 30px rgba(109, 40, 217, 0.15); }
+        body.light-mode { --bg-color: #f5f3ff; --text-main: #1e1b4b; --text-muted: #4c1d95; --primary: #7c3aed; --secondary: #4c1d95; --glass-bg: rgba(124, 58, 237, 0.05); --glass-border: rgba(124, 58, 237, 0.1); --nav-bg: rgba(245, 243, 255, 0.85); }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rubik', sans-serif; transition: 0.3s; }
+        body { background-color: var(--bg-color); color: var(--text-main); min-height: 100vh; }
+        header { position: fixed; top: 0; width: 100%; padding: 0.7rem 5%; display: flex; justify-content: flex-end; align-items: center; z-index: 1000; backdrop-filter: blur(15px); background: var(--nav-bg); border-bottom: 1px solid var(--glass-border); }
+        .nav-container { display: flex; align-items: center; gap: 1.5rem; }
+        nav ul { display: flex; gap: 2rem; list-style: none; }
+        nav a { color: var(--text-muted); text-decoration: none; font-weight: 500; }
+        nav a:hover, nav a.active { color: var(--primary); }
+        .nav-actions { display: flex; gap: 10px; border-left: 1px solid var(--glass-border); padding-left: 15px; }
+        .theme-toggle-btn, .lang-btn { background: transparent; border: none; color: var(--text-main); cursor: pointer; display: flex; align-items: center; font-family: 'Fira Code', monospace; font-size: 0.85rem; padding: 5px; transition: 0.3s; }
+        .lang-btn:hover, .lang-btn.active { color: var(--primary); font-weight: bold; }
+        
+        section { padding: 150px 0 5rem 0; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        .section-title { font-size: 2.5rem; text-align: center; margin-bottom: 4rem; width: 100%; display: block; font-weight: 700; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem; }
+        .project-card { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 3.5rem 2.5rem; border-radius: 25px; text-align: center; transition: 0.4s; position: relative; overflow: hidden; box-shadow: var(--card-shadow); }
+        .project-card:hover { transform: translateY(-10px); border-color: var(--primary); }
+        .project-card h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-main); }
+        .tech-stack { display: flex; gap: 10px; margin-top: 1.5rem; justify-content: center; font-size: 0.85rem; color: var(--secondary); font-family: 'Fira Code', monospace; flex-wrap: wrap; }
+        
+        footer { padding: 3rem 0; text-align: center; border-top: 1px solid var(--glass-border); margin-top: 3rem; color: var(--text-muted); }
+        .back-to-home { position: fixed; top: 25px; left: 5%; z-index: 1100; padding: 0.8rem 1.5rem; background: var(--primary); color: #fff; border-radius: 30px; text-decoration: none; font-weight: 700; }
+
+        @media screen and (max-width: 900px) {
+            header { justify-content: space-between; }
+            .nav-container { position: fixed; right: -100%; top:0; height:100vh; width:75%; background:var(--nav-bg); flex-direction:column; justify-content:center; }
+            .nav-container.active { right: 0; }
+            nav ul { flex-direction: column; }
+            .menu-toggle { display: block; font-size: 1.5rem; cursor: pointer; }
+        }
+    </style>
+</head>
+<body class="loaded">
+    <a href="index.html" class="back-to-home" data-lang="back_home"><i class="fas fa-arrow-left"></i> Ana Sayfa</a>
+
+    <header>
+        <div class="logo" style="display:none;">Enes D.</div> 
+        <div class="menu-toggle" onclick="document.getElementById('nav-menu').classList.toggle('active')"><i class="fas fa-bars"></i></div>
+        <nav class="nav-container" id="nav-menu">
+            <ul>
+                <li><a href="biography.html" data-lang="nav_bio">Hakkımda</a></li>
+                <li><a href="about.html" data-lang="nav_about">Uzmanlıklar</a></li>
+                <li><a href="projects.html" class="active" data-lang="nav_projects">Projeler</a></li>
+                <li><a href="contact.html" data-lang="nav_contact">Üyelik</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="lang-btn active" id="btn-tr" onclick="setLanguage('tr')">TR</button> / 
+                <button class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
+                <button id="theme-toggle" class="theme-toggle-btn" style="margin-left:10px;"><i class="fas fa-moon"></i></button>
+            </div>
+        </nav>
+    </header>
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title" data-lang="title_projects">Seçkin Projeler</h2>
+            <div class="grid-3">
+                <div class="project-card">
+                    <i class="fas fa-desktop" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1.5rem;"></i>
+                    <h3>Neon Dashboard</h3>
+                    <p data-lang="proj_1_desc">Karanlık mod odaklı modern yönetim paneli tasarımı ve kodlaması.</p>
+                    <div class="tech-stack"><span>React</span> <span>CSS Grid</span></div>
+                </div>
+                <div class="project-card">
+                    <i class="fas fa-shopping-cart" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1.5rem;"></i>
+                    <h3>E-Ticaret UI</h3>
+                    <p data-lang="proj_2_desc">Minimalist alışveriş arayüzü tasarımı ve kullanıcı deneyimi optimizasyonu.</p>
+                    <div class="tech-stack"><span>Vue.js</span> <span>Tailwind</span></div>
+                </div>
+                <div class="project-card">
+                    <i class="fas fa-feather-alt" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1.5rem;"></i>
+                    <h3 data-lang="proj_3_title">Kozmik Blog</h3>
+                    <p data-lang="proj_3_desc">Tipografi odaklı kişisel blog teması.</p>
+                    <div class="tech-stack"><span>Next.js</span> <span>MDX</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Enes Daşdan | Smart Portfolio</p>
+    </footer>
+    <script>
+        // --- ÇEVİRİ SİSTEMİ ---
+        const translations = {
+            tr: {
+                nav_bio: "Hakkımda", nav_about: "Uzmanlıklar", nav_projects: "Projeler", nav_contact: "Üyelik",
+                title_projects: "Seçkin Projeler",
+                proj_1_desc: "Karanlık mod odaklı modern yönetim paneli tasarımı ve kodlaması.",
+                proj_2_desc: "Minimalist alışveriş arayüzü tasarımı ve kullanıcı deneyimi optimizasyonu.",
+                proj_3_title: "Kozmik Blog",
+                proj_3_desc: "Tipografi odaklı kişisel blog teması.",
+                back_home: '<i class="fas fa-arrow-left"></i> Ana Sayfa'
+            },
+            en: {
+                nav_bio: "About Me", nav_about: "Expertise", nav_projects: "Projects", nav_contact: "Membership",
+                title_projects: "Selected Projects",
+                proj_1_desc: "Dark mode oriented modern dashboard design and coding.",
+                proj_2_desc: "Minimalist shopping interface design and user experience optimization.",
+                proj_3_title: "Cosmic Blog",
+                proj_3_desc: "Typography-focused personal blog theme.",
+                back_home: '<i class="fas fa-arrow-left"></i> Home'
+            }
+        };
+
+        let currentLang = localStorage.getItem('lang') || 'tr';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            document.getElementById('btn-tr').classList.toggle('active', lang === 'tr');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.querySelectorAll('[data-lang]').forEach(el => {
+                const key = el.getAttribute('data-lang');
+                if (translations[lang][key]) el.innerHTML = translations[lang][key];
+            });
+        }
+        setLanguage(currentLang);
+
+        const themeBtn = document.getElementById('theme-toggle');
+        function updateThemeIcon() { const isLight = document.body.classList.contains('light-mode'); themeBtn.querySelector('i').className = isLight ? 'fas fa-sun' : 'fas fa-moon'; }
+        if (localStorage.getItem('theme') === 'light') document.body.classList.add('light-mode');
+        themeBtn.addEventListener('click', () => { document.body.classList.toggle('light-mode'); localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark'); updateThemeIcon(); });
+        updateThemeIcon();
+    </script>
+</body>
+</html>

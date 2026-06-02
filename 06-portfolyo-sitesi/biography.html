@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KJTK2KH660"></script>
+    <script>window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-KJTK2KH660');</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- --- SEO AYARLARI (HAKKIMDA) --- -->
+    <title>Hakkımda & Eğitim | Enes Daşdan</title>
+    <meta name="description" content="Enes Daşdan kimdir? Eğitim hayatı, Sinop Ayancık MYO ve Alaca Mesleki Teknik Lisesi geçmişi, kişisel biyografisi ve hedefleri hakkında detaylı bilgi.">
+    <meta name="keywords" content="Enes Daşdan Hakkında, Enes Daşdan Biyografi, Sinop Ayancık MYO, Alaca Mesleki Lisesi, Web Geliştirici Geçmişi, Eğitim Hayatı">
+    <meta name="author" content="Enes Daşdan">
+    <meta name="robots" content="index, follow">
+
+    <!-- Sosyal Medya Paylaşım (Open Graph) -->
+    <meta property="og:title" content="Hakkımda & Eğitim | Enes Daşdan">
+    <meta property="og:description" content="Teknoloji yolculuğum, eğitim hayatım ve hedeflerim hakkında detaylar.">
+    <meta property="og:image" content="IMG_3437.png.png">
+    <meta property="og:url" content="https://enesdasdan.com/biography.html">
+    <meta property="og:type" content="article">
+    <meta property="og:locale" content="tr_TR">
+
+    <!-- Twitter Kartları -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Hakkımda & Eğitim | Enes Daşdan">
+    <meta name="twitter:description" content="Eğitim hayatım ve teknoloji yolculuğum.">
+    <meta name="twitter:image" content="IMG_3437.png.png">
+    <!-- --- SEO BİTİŞ --- -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&family=Fira+Code:wght@300;400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root { --bg-color: #050505; --text-main: #ffffff; --text-muted: #a1a1aa; --primary: #7c3aed; --secondary: #d8b4fe; --accent-gradient: linear-gradient(180deg, #7c3aed, #d8b4fe); --glass-bg: rgba(255, 255, 255, 0.03); --glass-border: rgba(255, 255, 255, 0.1); --nav-bg: rgba(5, 5, 5, 0.85); --card-shadow: 0 10px 30px rgba(109, 40, 217, 0.15); --success: #8b5cf6; --danger: #ef4444; --admin-color: #d8b4fe; }
+        body.light-mode { --bg-color: #f5f3ff; --text-main: #1e1b4b; --text-muted: #4c1d95; --primary: #7c3aed; --secondary: #4c1d95; --accent-gradient: linear-gradient(180deg, #7c3aed, #4c1d95); --glass-bg: rgba(124, 58, 237, 0.05); --glass-border: rgba(124, 58, 237, 0.1); --nav-bg: rgba(245, 243, 255, 0.85); --card-shadow: 0 10px 30px rgba(0,0,0,0.05); --admin-color: #4c1d95; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rubik', sans-serif; scroll-behavior: smooth; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+        body { background-color: var(--bg-color); color: var(--text-main); overflow-x: hidden; min-height: 100vh; position: relative; font-size: 16px; }
+        header { position: fixed; top: 0; width: 100%; padding: 0.7rem 5%; display: flex; justify-content: flex-end; align-items: center; z-index: 1000; backdrop-filter: blur(15px); background: var(--nav-bg); border-bottom: 1px solid var(--glass-border); }
+        .logo { display: none !important; }
+        .nav-container { display: flex; align-items: center; gap: 1.5rem; }
+        nav ul { display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; }
+        nav a { font-weight: 500; font-size: 0.9rem; color: var(--text-muted); text-decoration: none; text-transform: uppercase; letter-spacing: 0.5px; }
+        nav a:hover, nav a.active { color: var(--primary); }
+        .nav-actions { display: flex; align-items: center; gap: 10px; border-left: 1px solid var(--glass-border); padding-left: 15px; }
+        .theme-toggle-btn, .lang-btn { background: transparent; border: none; color: var(--text-main); cursor: pointer; display: flex; align-items: center; font-family: 'Fira Code', monospace; font-size: 0.85rem; padding: 5px; transition: 0.3s; }
+        .theme-toggle-btn { font-size: 1.2rem; }
+        .lang-btn:hover, .lang-btn.active { color: var(--primary); font-weight: bold; text-shadow: 0 0 10px rgba(124, 58, 237, 0.5); }
+        .lang-separator { color: var(--glass-border); font-size: 0.8rem; }
+        .menu-toggle { display: none; font-size: 1.5rem; color: var(--text-main); cursor: pointer; z-index: 1002; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        
+        /* BU SAYFA İÇİN ÖZEL PADDING */
+        section { padding: 12rem 0; padding-top: 150px; }
+        
+        .section-title { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; text-align: center; margin-bottom: 6rem; position: relative; width: 100%; display: inline-block; }
+        .section-title::after { content: ''; position: absolute; width: 60px; height: 4px; background: linear-gradient(90deg, #6d28d9, #d8b4fe, #6d28d9); bottom: -15px; left: 50%; transform: translateX(-50%); }
+        .bio-container { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; padding: 2.5rem; margin-bottom: 4rem; box-shadow: var(--card-shadow); backdrop-filter: blur(10px); text-align: center; }
+        .bio-text p { font-size: 1.1rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 1.5rem; max-width: 900px; margin-left: auto; margin-right: auto; }
+        .education-flow { position: relative; max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; padding: 20px 0; }
+        .flow-line { position: absolute; left: 50%; transform: translateX(-50%); top: 0; bottom: 0; width: 4px; background: var(--accent-gradient); box-shadow: 0 0 15px var(--primary); z-index: 0; border-radius: 2px; }
+        .flow-card { width: 45%; position: relative; margin-bottom: 3rem; padding: 1.5rem; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--glass-border); border-radius: 15px; backdrop-filter: blur(5px); transition: all 0.3s ease; z-index: 1; }
+        .flow-card:last-child { margin-bottom: 0; }
+        .flow-card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 10px 25px rgba(124, 58, 237, 0.2); }
+        .flow-card:nth-child(even) { align-self: flex-start; text-align: right; border-right: 4px solid var(--primary); }
+        .flow-card:nth-child(odd) { align-self: flex-end; text-align: left; border-left: 4px solid var(--primary); }
+        .flow-card::before { content: ''; position: absolute; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; background: var(--bg-color); border: 4px solid var(--primary); border-radius: 50%; z-index: 2; box-shadow: 0 0 10px var(--primary); }
+        .flow-card:nth-child(even)::before { right: calc(-11.1% - 14px); }
+        .flow-card:nth-child(odd)::before { left: calc(-11.1% - 14px); }
+        .flow-title { font-size: 1.4rem; color: var(--text-main); font-weight: 700; margin-bottom: 0.5rem; }
+        .flow-desc { font-family: 'Outfit', sans-serif; font-size: 1rem; color: var(--secondary); font-weight: 300; letter-spacing: 0.5px; }
+        .flow-icon { position: absolute; top: 50%; transform: translateY(-50%); font-size: 2.5rem; color: var(--glass-border); opacity: 0.15; }
+        .flow-card:nth-child(even) .flow-icon { left: 20px; }
+        .flow-card:nth-child(odd) .flow-icon { right: 20px; }
+        
+        .reveal { opacity: 1 !important; transform: translateY(0) !important; visibility: visible !important; }
+        footer { padding: 5rem 0; text-align: center; border-top: 1px solid var(--glass-border); margin-top: 8rem; color: var(--text-muted); }
+        .socials { display: flex; justify-content: center; gap: 3rem; margin-bottom: 2rem; }
+        .socials a { font-size: 2rem; color: var(--text-main); transition: 0.3s; }
+        .socials a:hover { color: var(--primary); transform: scale(1.2); }
+        .back-to-home { position: fixed; top: 25px; left: 5%; z-index: 1100; padding: 0.8rem 1.5rem; background: var(--primary); color: #fff; border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; }
+        .back-to-home:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4); background: var(--secondary); }
+
+        @media screen and (max-width: 900px) {
+             header { justify-content: space-between; padding: 1rem 5%; }
+             .menu-toggle { display: block; }
+             .nav-container { position: fixed; top: 0; right: -100%; height: 100vh; width: 75%; background: var(--nav-bg); flex-direction: column; justify-content: center; border-left: 1px solid var(--glass-border); transition: 0.4s ease-in-out; backdrop-filter: blur(20px); box-shadow: -10px 0 30px rgba(0,0,0,0.5); z-index: 1001; }
+             .nav-container.active { right: 0; }
+             nav ul { flex-direction: column; align-items: center; gap: 2rem; }
+             nav a { font-size: 1.2rem; }
+             .nav-actions { border-left: none; padding-left: 0; margin-top: 2rem; border-top: 1px solid var(--glass-border); padding-top: 2rem; width: 80%; justify-content: center; }
+             .flow-line { left: 20px; transform: none; }
+             .flow-card { width: calc(100% - 50px); align-self: flex-end; margin-bottom: 2rem; }
+             .flow-card:nth-child(even), .flow-card:nth-child(odd) { text-align: left; border-right: none; border-left: 4px solid var(--primary); }
+             .flow-card::before { left: -42px !important; right: auto !important; }
+             .flow-card:nth-child(even) .flow-icon { left: auto; right: 20px; }
+        }
+    </style>
+</head>
+<body class="loaded">
+    <a href="index.html" class="back-to-home" data-lang="back_home"><i class="fas fa-arrow-left"></i> Ana Sayfa</a>
+
+    <header>
+        <div class="logo">Enes D.</div> 
+        <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+        <nav class="nav-container" id="nav-menu">
+            <ul>
+                <li><a href="biography.html" class="active" data-lang="nav_bio">Hakkımda</a></li>
+                <li><a href="about.html" data-lang="nav_about">Uzmanlıklar</a></li>
+                <li><a href="projects.html" data-lang="nav_projects">Projeler</a></li>
+                <li><a href="contact.html" data-lang="nav_contact">Üyelik</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="lang-btn active" id="btn-tr" onclick="setLanguage('tr')">TR</button>
+                <span class="lang-separator">/</span>
+                <button class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
+                <button id="theme-toggle" class="theme-toggle-btn" style="margin-left: 10px;"><i class="fas fa-moon"></i></button>
+            </div>
+        </nav>
+    </header>
+
+    <section id="biography">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title" data-lang="title_bio">Hakkımda & Eğitim</h2>
+            </div>
+            
+            <div class="bio-container reveal">
+                <div class="bio-text">
+                    <p data-lang="bio_text_1">Merhaba, ben Enes. 2006 yılında Çorum Alaca'da dünyaya geldim. Eğitim hayatıma Hüseyin Gazi İlkokulu'nda başladım ve ardından İmamhatip Ortaokulu'nu tamamladım. Teknolojiye olan ilgim küçük yaşlarda başladı ve lise eğitimimle birlikte bu alanda kendimi geliştirmeye odaklandım.</p>
+                    <p data-lang="bio_text_2">Alaca Mesleki ve Teknik Anadolu Lisesi'ndeki eğitimimin ardından, şu anda Sinop Ayancık Meslek Yüksek Okulu'nda İnternet ve Ağ Teknolojileri bölümünde öğrenimime devam ediyorum. Hem teorik hem de pratik bilgilerimi birleştirerek dijital dünyada iz bırakmayı hedefliyorum.</p>
+                </div>
+            </div>
+
+            <div class="education-flow reveal">
+                <div class="flow-line"></div>
+                <div class="flow-card">
+                    <i class="fas fa-university flow-icon"></i>
+                    <h3 class="flow-title" data-lang="edu_1_title">Sinop Ayancık MYO</h3>
+                    <p class="flow-desc" data-lang="edu_1_desc">İnternet ve Ağ Teknolojileri</p>
+                </div>
+                <div class="flow-card">
+                    <i class="fas fa-school flow-icon"></i>
+                    <h3 class="flow-title" data-lang="edu_2_title">Alaca Mesleki ve Teknik A.L.</h3>
+                    <p class="flow-desc" data-lang="edu_2_desc">Lise Eğitimi</p>
+                </div>
+                <div class="flow-card">
+                    <i class="fas fa-book-reader flow-icon"></i>
+                    <h3 class="flow-title" data-lang="edu_3_title">İmamhatip Ortaokulu</h3>
+                    <p class="flow-desc" data-lang="edu_3_desc">Ortaokul Eğitimi</p>
+                </div>
+                <div class="flow-card">
+                    <i class="fas fa-pencil-alt flow-icon"></i>
+                    <h3 class="flow-title" data-lang="edu_4_title">Hüseyin Gazi İlkokulu</h3>
+                    <p class="flow-desc" data-lang="edu_4_desc">İlkokul Eğitimi</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="socials">
+            <a href="https://www.instagram.com/enes.dsdn" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:enesdasdan43@gmail.com"><i class="far fa-envelope"></i></a>
+        </div>
+        <p>&copy; 2025 Enes Daşdan | Smart Portfolio</p>
+    </footer>
+
+    <script>
+        function toggleMenu() { document.getElementById('nav-menu').classList.toggle('active'); }
+        
+        // --- ÇEVİRİ SİSTEMİ (Index'ten Kopyalandı) ---
+        const translations = {
+            tr: {
+                nav_bio: "Hakkımda", nav_about: "Uzmanlıklar", nav_projects: "Projeler", nav_contact: "Üyelik",
+                title_bio: "Hakkımda & Eğitim",
+                bio_text_1: "Merhaba, ben Enes. 2006 yılında Çorum Alaca'da dünyaya geldim. Eğitim hayatıma Hüseyin Gazi İlkokulu'nda başladım ve ardından İmamhatip Ortaokulu'nu tamamladım. Teknolojiye olan ilgim küçük yaşlarda başladı ve lise eğitimimle birlikte bu alanda kendimi geliştirmeye odaklandım.",
+                bio_text_2: "Alaca Mesleki ve Teknik Anadolu Lisesi'ndeki eğitimimin ardından, şu anda Sinop Ayancık Meslek Yüksek Okulu'nda İnternet ve Ağ Teknolojileri bölümünde öğrenimime devam ediyorum. Hem teorik hem de pratik bilgilerimi birleştirerek dijital dünyada iz bırakmayı hedefliyorum.",
+                edu_1_title: "Sinop Ayancık MYO", edu_1_desc: "İnternet ve Ağ Teknolojileri",
+                edu_2_title: "Alaca Mesleki ve Teknik A.L.", edu_2_desc: "Lise Eğitimi",
+                edu_3_title: "İmamhatip Ortaokulu", edu_3_desc: "Ortaokul Eğitimi",
+                edu_4_title: "Hüseyin Gazi İlkokulu", edu_4_desc: "İlkokul Eğitimi",
+                back_home: '<i class="fas fa-arrow-left"></i> Ana Sayfa'
+            },
+            en: {
+                nav_bio: "About Me", nav_about: "Expertise", nav_projects: "Projects", nav_contact: "Membership",
+                title_bio: "About Me & Education",
+                bio_text_1: "Hello, I'm Enes. I was born in 2006 in Çorum Alaca. I started my education at Hüseyin Gazi Primary School and then completed İmamhatip Middle School. My interest in technology started at a young age and I focused on improving myself in this field during my high school education.",
+                bio_text_2: "After my education at Alaca Vocational and Technical Anatolian High School, I am currently continuing my education in the Internet and Network Technologies department at Sinop Ayancık Vocational School. I aim to leave a mark in the digital world by combining my theoretical and practical knowledge.",
+                edu_1_title: "Sinop Ayancık Voc. School", edu_1_desc: "Internet and Network Technologies",
+                edu_2_title: "Alaca Vocational Tech. HS", edu_2_desc: "High School Education",
+                edu_3_title: "Imam Hatip Middle School", edu_3_desc: "Middle School Education",
+                edu_4_title: "Hüseyin Gazi Primary School", edu_4_desc: "Primary School Education",
+                back_home: '<i class="fas fa-arrow-left"></i> Home'
+            }
+        };
+
+        let currentLang = localStorage.getItem('lang') || 'tr';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            document.getElementById('btn-tr').classList.toggle('active', lang === 'tr');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.querySelectorAll('[data-lang]').forEach(el => {
+                const key = el.getAttribute('data-lang');
+                if (translations[lang][key]) el.innerHTML = translations[lang][key];
+            });
+        }
+
+        // Sayfa açılışında dili ayarla
+        setLanguage(currentLang);
+
+        const themeBtn = document.getElementById('theme-toggle');
+        function updateThemeIcon() { const isLight = document.body.classList.contains('light-mode'); themeBtn.querySelector('i').className = isLight ? 'fas fa-sun' : 'fas fa-moon'; }
+        if (localStorage.getItem('theme') === 'light') document.body.classList.add('light-mode');
+        themeBtn.addEventListener('click', () => { document.body.classList.toggle('light-mode'); localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark'); updateThemeIcon(); });
+        updateThemeIcon();
+    </script>
+</body>
+</html>

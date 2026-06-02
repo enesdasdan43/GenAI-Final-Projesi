@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KJTK2KH660"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-KJTK2KH660');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enes Daşdan | Smart Portfolio</title>
+    <!-- Fontlar (Rubik, Fira Code, Outfit) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&family=Fira+Code:wght@300;400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* MOR & BEYAZ PALETİ: DARK MODE */
+            --bg-color: #050505;
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
+            --primary: #7c3aed; /* Ana Mor */
+            --secondary: #d8b4fe; /* Açık Mor */
+            --accent-gradient: linear-gradient(180deg, #7c3aed, #d8b4fe); /* Dikey Gradient */
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --nav-bg: rgba(5, 5, 5, 0.85);
+            --card-shadow: 0 10px 30px rgba(109, 40, 217, 0.15);
+            --success: #8b5cf6;
+            --danger: #ef4444;
+            --admin-color: #d8b4fe;
+        }
+
+        body.light-mode {
+            --bg-color: #f5f3ff;
+            --text-main: #1e1b4b;
+            --text-muted: #4c1d95;
+            --primary: #7c3aed;
+            --secondary: #4c1d95;
+            --accent-gradient: linear-gradient(180deg, #7c3aed, #4c1d95);
+            --glass-bg: rgba(124, 58, 237, 0.05);
+            --glass-border: rgba(124, 58, 237, 0.1);
+            --nav-bg: rgba(245, 243, 255, 0.85);
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            --admin-color: #4c1d95;
+        }
+
+        /* GENEL STİLLER */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rubik', sans-serif; scroll-behavior: smooth; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+        body { background-color: var(--bg-color); color: var(--text-main); overflow-x: hidden; min-height: 100vh; position: relative; font-size: 16px; }
+
+        /* GÖRÜNÜM MODLARI (Tekil Sayfa Görüntüleme için) */
+        body.only-section .hero, 
+        body.only-section footer, 
+        body.only-section #intro-overlay { display: none !important; }
+        
+        body.only-section .reveal { opacity: 1 !important; transform: translateY(0) !important; visibility: visible !important; }
+        body.only-section section { padding-top: 150px; }
+
+        body.only-section-biography section:not(#biography) { display: none !important; }
+        body.only-section-about section:not(#about) { display: none !important; }
+        body.only-section-projects section:not(#projects) { display: none !important; }
+        body.only-section-contact section:not(#contact) { display: none !important; }
+
+        /* GERİ DÖN BUTONU */
+        .back-to-home {
+            position: fixed; top: 25px; left: 5%; z-index: 1100; padding: 0.8rem 1.5rem;
+            background: var(--primary); color: #fff; border-radius: 30px; text-decoration: none;
+            font-weight: 700; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease; display: flex; align-items: center; gap: 8px;
+            opacity: 0; animation: fadeIn 0.5s ease 0.5s forwards;
+        }
+        .back-to-home:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4); background: var(--secondary); }
+
+        /* INTRO (Giriş Animasyonu) */
+        #intro-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #000; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1); pointer-events: none; }
+        .intro-content h1 { font-size: 3rem; font-weight: 900; color: #fff; margin-bottom: 20px; opacity: 0; animation: fadeInUp 1s ease 0.5s forwards; }
+        .loader-container { width: 200px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; opacity: 0; animation: fadeIn 0.5s ease 1s forwards; }
+        .loader-bar { width: 0%; height: 100%; background: var(--primary); box-shadow: 0 0 10px var(--primary); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { to { opacity: 1; } }
+        body.loaded #intro-overlay { transform: translateY(-100%); }
+
+        /* HEADER & NAV */
+        header { 
+            position: fixed; top: 0; width: 100%; padding: 0.7rem 5%; 
+            display: flex; justify-content: flex-end; /* Logo gizli olduğu için sağa yaslı */
+            align-items: center; 
+            z-index: 1000; backdrop-filter: blur(15px); background: var(--nav-bg); border-bottom: 1px solid var(--glass-border); 
+        }
+        .logo { display: none !important; } 
+        
+        /* Nav Container */
+        .nav-container { display: flex; align-items: center; gap: 1.5rem; }
+
+        nav ul { display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; }
+        nav a { font-weight: 500; font-size: 0.9rem; color: var(--text-muted); text-decoration: none; text-transform: uppercase; letter-spacing: 0.5px; }
+        nav a:hover { color: var(--primary); }
+        
+        .nav-actions { display: flex; align-items: center; gap: 10px; border-left: 1px solid var(--glass-border); padding-left: 15px; }
+        .theme-toggle-btn, .lang-btn { background: transparent; border: none; color: var(--text-main); cursor: pointer; display: flex; align-items: center; font-family: 'Fira Code', monospace; font-size: 0.85rem; padding: 5px; transition: 0.3s; }
+        .theme-toggle-btn { font-size: 1.2rem; }
+        .lang-btn:hover, .lang-btn.active { color: var(--primary); font-weight: bold; text-shadow: 0 0 10px rgba(124, 58, 237, 0.5); }
+        .lang-separator { color: var(--glass-border); font-size: 0.8rem; }
+
+        /* MOBILE MENU TOGGLE */
+        .menu-toggle { display: none; font-size: 1.5rem; color: var(--text-main); cursor: pointer; z-index: 1002; }
+
+        /* HERO BÖLÜMÜ */
+        .hero { min-height: 110vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; padding-top: 180px; }
+        .hero h1 { 
+            font-family: 'Rubik', sans-serif; font-size: clamp(2.5rem, 8vw, 6rem); /* Mobilde taşmayı önlemek için clamp güncellendi */
+            font-weight: 900; line-height: 1.1; margin-bottom: 2rem; 
+            background: linear-gradient(90deg, #6d28d9, #d8b4fe, #ffffff, #d8b4fe, #6d28d9); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            opacity: 0; letter-spacing: -2px; filter: drop-shadow(0 15px 30px rgba(109, 40, 217, 0.4)); 
+            animation: ghostFadeIn 3s cubic-bezier(0.4, 0, 0.2, 1) forwards, shimmerText 8s linear infinite; 
+            padding: 0 10px; /* Mobilde kenarlara yapışmasın */
+        }
+        @keyframes shimmerText { to { background-position: 200% center; } }
+        @keyframes ghostFadeIn { 0% { opacity: 0; transform: scale(0.9) translateY(60px); filter: blur(25px); } 100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); } }
+        .profile-img-container { width: 210px; height: 210px; margin: 0 auto 2.5rem auto; border-radius: 50%; overflow: hidden; border: 4px solid var(--primary); box-shadow: 0 0 25px var(--primary); opacity: 0; animation: fadeInPic 1.5s ease 1s forwards; transition: transform 0.3s; background: #111; }
+        .profile-img-container:hover { transform: scale(1.05); }
+        .profile-img-container img { width: 100%; height: 100%; object-fit: cover; }
+        @keyframes fadeInPic { to { opacity: 1; } }
+        .hero p { font-size: 1.3rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 3.5rem auto; opacity: 0; animation: fadeIn 1s ease 1.5s forwards; font-weight: 400; padding: 0 1rem; }
+        .btn-wrapper { display: flex; gap: 1.5rem; justify-content: center; opacity: 0; animation: fadeIn 1s ease 2s forwards; flex-wrap: wrap; }
+        
+        /* HAKKIMDA (YENİ - MERKEZİ AKIŞ / CENTER TIMELINE) */
+        .bio-container { 
+            background: var(--glass-bg); 
+            border: 1px solid var(--glass-border); 
+            border-radius: 20px; 
+            padding: 2.5rem; 
+            margin-bottom: 4rem; 
+            box-shadow: var(--card-shadow); 
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+        .bio-text p { font-size: 1.1rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 1.5rem; max-width: 900px; margin-left: auto; margin-right: auto; }
+
+        .education-flow {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            padding: 20px 0;
+        }
+        /* Orta Çizgi */
+        .flow-line {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--accent-gradient);
+            box-shadow: 0 0 15px var(--primary);
+            z-index: 0;
+            border-radius: 2px;
+        }
+        .flow-card {
+            width: 45%;
+            position: relative;
+            margin-bottom: 3rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+        .flow-card:last-child { margin-bottom: 0; }
+        .flow-card:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 10px 25px rgba(124, 58, 237, 0.2); }
+        
+        /* SOL TARAFTAKİ KARTLAR (Çift Sayılı) */
+        .flow-card:nth-child(even) {
+            align-self: flex-start;
+            text-align: right;
+            border-right: 4px solid var(--primary);
+        }
+        
+        /* SAĞ TARAFTAKİ KARTLAR (Tek Sayılı) */
+        .flow-card:nth-child(odd) {
+            align-self: flex-end;
+            text-align: left;
+            border-left: 4px solid var(--primary);
+        }
+
+        /* ORTA NOKTALAR (DOTS) */
+        .flow-card::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--bg-color);
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+            z-index: 2;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .flow-card:nth-child(even)::before { right: calc(-11.1% - 14px); }
+        .flow-card:nth-child(odd)::before { left: calc(-11.1% - 14px); }
+
+        .flow-title { font-size: 1.4rem; color: var(--text-main); font-weight: 700; margin-bottom: 0.5rem; }
+        /* AÇIKLAMA FONTU: OUTFIT */
+        .flow-desc { font-family: 'Outfit', sans-serif; font-size: 1rem; color: var(--secondary); font-weight: 300; letter-spacing: 0.5px; }
+        
+        .flow-icon { position: absolute; top: 50%; transform: translateY(-50%); font-size: 2.5rem; color: var(--glass-border); opacity: 0.15; }
+        .flow-card:nth-child(even) .flow-icon { left: 20px; }
+        .flow-card:nth-child(odd) .flow-icon { right: 20px; }
+
+        /* BUTONLAR */
+        .btn-liquid { 
+            padding: 1rem 2.5rem; border-radius: 50px; background: linear-gradient(90deg, #6d28d9, #d8b4fe, #ffffff, #d8b4fe, #6d28d9); border: none; color: white; font-weight: 700; cursor: pointer; 
+            box-shadow: 0 4px 15px rgba(109, 40, 217, 0.3); transition: 0.3s; text-decoration: none; display: inline-block;
+        }
+        .btn-liquid:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(109, 40, 217, 0.4); color: white; }
+        
+        #hero-auth-btn { padding: 1rem 2.5rem; border-radius: 50px; border: 2px solid var(--primary); color: var(--primary); text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; background: transparent; transition: 0.3s; }
+        #hero-auth-btn:hover { background: var(--primary); color: white; }
+
+        /* GENEL BÖLÜM STİLLERİ */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        section { padding: 12rem 0; }
+        .section-title { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; text-align: center; margin-bottom: 6rem; position: relative; width: 100%; display: inline-block; }
+        .section-title::after { content: ''; position: absolute; width: 60px; height: 4px; background: linear-gradient(90deg, #6d28d9, #d8b4fe, #6d28d9); bottom: -15px; left: 50%; transform: translateX(-50%); }
+        /* Grid Güncelleme: Mobilde 320px çok geniş kalabilir, 280px e çektim */
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem; }
+        .info-card, .project-card { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 3.5rem 2.5rem; border-radius: 25px; text-align: center; transition: 0.4s; position: relative; overflow: hidden; box-shadow: var(--card-shadow); }
+        .info-card:hover, .project-card:hover { transform: translateY(-10px); border-color: var(--primary); }
+        .skill-wrapper { margin-top: 2rem; text-align: left; }
+        .skill-info { display: flex; justify-content: space-between; font-size: 0.95rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 600; }
+        .skill-bar { width: 100%; height: 10px; background: rgba(255,255,255,0.05); border-radius: 5px; overflow: hidden; }
+        .skill-fill { height: 100%; background: var(--primary); border-radius: 5px; width: 0; transition: width 2s cubic-bezier(0.25, 1, 0.5, 1); }
+        .reveal.active .skill-fill { width: var(--w); }
+        .icon-wrap { font-size: 2.5rem; margin-bottom: 1.5rem; background: linear-gradient(90deg, #6d28d9, #d8b4fe); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .project-card h3 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-main); }
+        .tech-stack { display: flex; gap: 10px; margin-top: 1.5rem; justify-content: center; font-size: 0.85rem; color: var(--secondary); font-family: 'Fira Code', monospace; flex-wrap: wrap; }
+
+        /* AUTH & EXTRAS */
+        .auth-card { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 4rem; border-radius: 30px; backdrop-filter: blur(15px); max-width: 500px; margin: 0 auto; width: 100%; }
+        .auth-toggle { display: flex; background: rgba(255,255,255,0.05); border-radius: 12px; padding: 5px; margin-bottom: 2.5rem; }
+        .auth-btn { flex: 1; padding: 12px; border: none; background: transparent; color: var(--text-muted); cursor: pointer; border-radius: 8px; transition: 0.3s; font-weight: 600; }
+        .auth-btn.active { background: var(--primary); color: #fff; }
+        input { width: 100%; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); padding: 1.2rem; border-radius: 12px; color: var(--text-main); font-size: 1rem; outline: none; margin-bottom: 1.5rem; }
+        .admin-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 0.9rem; }
+        .admin-table th, .admin-table td { padding: 1rem; text-align: left; border-bottom: 1px solid var(--glass-border); }
+
+        #admin-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 10000; display: none; flex-direction: column; justify-content: center; align-items: center; font-family: 'Fira Code', monospace; color: var(--primary); }
+        .admin-text { font-size: 1.5rem; margin-bottom: 20px; text-shadow: 0 0 10px var(--primary); }
+        .scan-line { width: 100%; height: 2px; background: var(--admin-color); position: absolute; top: 0; left: 0; box-shadow: 0 0 15px var(--admin-color); animation: scan 2s linear infinite; opacity: 0.5; }
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+
+        #chatbot-widget { position: fixed; bottom: 40px; right: 40px; z-index: 9990; display: block; }
+        .chat-toggle-btn { width: 65px; height: 65px; border-radius: 50%; background: linear-gradient(90deg, #6d28d9, #d8b4fe); border: none; color: white; font-size: 1.8rem; cursor: pointer; box-shadow: 0 0 20px rgba(109, 40, 217, 0.5); }
+        .chat-window { position: absolute; bottom: 85px; right: 0; width: 360px; height: 500px; background: var(--nav-bg); backdrop-filter: blur(20px); border: 1px solid var(--glass-border); border-radius: 20px; display: none; flex-direction: column; overflow: hidden; }
+        #weather-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; overflow: hidden; }
+        
+        .status-msg { text-align: center; margin-bottom: 1rem; font-size: 0.95rem; border-radius: 10px; padding: 15px; position: fixed; top: 100px; left: 50%; transform: translateX(-50%); z-index: 2000; display: none; width: 80%; max-width: 400px; color: #fff; }
+        .status-msg.error { background: var(--danger); border: 1px solid rgba(255,255,255,0.2); } 
+        .status-msg.success { background: var(--success); border: 1px solid rgba(255,255,255,0.2); }
+        
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 1.2s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        footer { padding: 5rem 0; text-align: center; border-top: 1px solid var(--glass-border); margin-top: 8rem; color: var(--text-muted); }
+        .socials { display: flex; justify-content: center; gap: 3rem; margin-bottom: 2rem; }
+        .socials a { font-size: 2rem; color: var(--text-main); transition: 0.3s; }
+        .socials a:hover { color: var(--primary); transform: scale(1.2); }
+        
+        .weather-widget { position: fixed; bottom: 25px; left: 25px; background: var(--nav-bg); padding: 10px 20px; border-radius: 50px; border: 1px solid var(--glass-border); font-size: 0.9rem; z-index: 100; backdrop-filter: blur(10px); }
+        .snowflake { position: absolute; color: white; opacity: 0.6; animation: snowfall 5s linear infinite; }
+        .raindrop { position: absolute; background: rgba(216, 180, 254, 0.4); width: 2px; height: 15px; animation: rainfall 0.8s linear infinite; }
+        .star { position: absolute; background: white; border-radius: 50%; opacity: 0.3; animation: twinkle 3s infinite ease-in-out; }
+        @keyframes rainfall { to { transform: translateY(100vh); } }
+        @keyframes snowfall { 0% { transform: translateY(-10vh) rotate(0deg); } 100% { transform: translateY(100vh) rotate(360deg); } }
+        @keyframes twinkle { 0%, 100% { opacity: 0.2; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.2); } }
+
+        /* MOBİL UYUMLULUK (MEDIA QUERIES) */
+        @media screen and (max-width: 900px) {
+             header { justify-content: space-between; padding: 1rem 5%; }
+             /* Hamburger Menü İkonu Görünür Olsun */
+             .menu-toggle { display: block; }
+             
+             /* Menü Konteynerı Mobilde Tam Ekran Yan Menü Olacak */
+             .nav-container {
+                 position: fixed;
+                 top: 0;
+                 right: -100%; /* Başlangıçta ekran dışında */
+                 height: 100vh;
+                 width: 75%; /* Ekranın %75'ini kapla */
+                 background: var(--nav-bg);
+                 flex-direction: column;
+                 justify-content: center;
+                 border-left: 1px solid var(--glass-border);
+                 transition: 0.4s ease-in-out;
+                 backdrop-filter: blur(20px);
+                 box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+                 z-index: 1001; /* Header'ın üzerinde olsun */
+             }
+             
+             /* Menü Aktif Olduğunda (JS ile class eklenecek) */
+             .nav-container.active { right: 0; }
+             
+             nav ul { flex-direction: column; align-items: center; gap: 2rem; }
+             nav a { font-size: 1.2rem; }
+             
+             .nav-actions { border-left: none; padding-left: 0; margin-top: 2rem; border-top: 1px solid var(--glass-border); padding-top: 2rem; width: 80%; justify-content: center; }
+             
+             /* Hero Düzeltmesi */
+             .hero { padding-top: 120px; min-height: auto; padding-bottom: 5rem; }
+             .btn-wrapper { flex-direction: column; width: 100%; padding: 0 10%; }
+             .btn-liquid, #hero-auth-btn { width: 100%; text-align: center; }
+
+             /* Padding Azaltma */
+             section { padding: 5rem 0; }
+             .section-title { margin-bottom: 3rem; }
+
+             /* Eğitim Akışı Mobili */
+             .flow-line { left: 20px; transform: none; }
+             .flow-card { width: calc(100% - 50px); align-self: flex-end; margin-bottom: 2rem; }
+             .flow-card:nth-child(even), .flow-card:nth-child(odd) { 
+                 text-align: left; 
+                 border-right: none; 
+                 border-left: 4px solid var(--primary); 
+             }
+             .flow-card::before { left: -42px !important; right: auto !important; }
+             .flow-card:nth-child(even) .flow-icon { left: auto; right: 20px; }
+             
+             /* Chat & Widget */
+             .chat-window { width: 90vw; right: 5vw; bottom: 80px; height: 60vh; }
+             #chatbot-widget { bottom: 20px; right: 20px; }
+             .weather-widget { bottom: 20px; left: 10px; padding: 8px 15px; font-size: 0.8rem; }
+             
+             /* Auth Card */
+             .auth-card { padding: 2rem 1.5rem; }
+             
+             /* Tablo */
+             .admin-table { font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body style="overflow: hidden;">
+
+    <!-- INTRO OVERLAY -->
+    <div id="intro-overlay">
+        <div class="intro-content"><h1>Enes Daşdan</h1></div>
+        <div class="loader-container"><div class="loader-bar" id="main-loader-bar"></div></div>
+    </div>
+
+    <!-- ADMIN GİRİŞ ANİMASYONU -->
+    <div id="admin-overlay">
+        <div class="scan-line"></div>
+        <div id="admin-text-container"></div>
+        <div id="admin-final-text" style="font-size: 3.5rem; font-weight: bold; color: #fff; text-align: center;" data-lang="welcome_boss">HOŞGELDİN<br>PATRON</div>
+    </div>
+
+    <!-- NORMAL ÜYE GİRİŞ ANİMASYONU -->
+    <div id="user-welcome-overlay">
+        <div class="welcome-card">
+            <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--success); margin-bottom: 1.5rem;"></i>
+            <h2 id="welcome-user-name"></h2>
+        </div>
+    </div>
+
+    <!-- CHATBOT -->
+    <div id="chatbot-widget">
+        <div class="chat-window" id="chat-window">
+            <div class="chat-header" style="background:var(--primary); padding:15px; color:white; display:flex; justify-content:space-between;">
+                <span>EnesAI Asistan</span>
+                <span onclick="toggleChat()" style="cursor:pointer; padding: 0 10px; font-size: 1.2rem;">&times;</span>
+            </div>
+            <div class="chat-body" id="chat-body" style="flex:1; padding:15px; overflow-y:auto; display:flex; flex-direction:column; gap:10px;">
+                <div style="background:var(--glass-bg); padding:10px; border-radius:10px; align-self:flex-start;" data-lang="bot_welcome">Merhaba kanka! Ben Enes'in asistanıyım. Sana nasıl yardımcı olabilirim?</div>
+            </div>
+            <div class="chat-footer" style="padding:15px; display:flex; gap:10px;">
+                <input type="text" id="chat-input" placeholder="Bir soru sor..." data-lang-placeholder="bot_placeholder" style="margin-bottom:0; flex:1; border-radius:10px; border:1px solid var(--glass-border); background:rgba(0,0,0,0.3); color:white; padding:10px;">
+                <button onclick="sendMessage()" style="background:var(--primary); border:none; padding:10px; border-radius:10px; color:white;">-></button>
+            </div>
+        </div>
+        <button class="chat-toggle-btn" onclick="toggleChat()"><i class="fas fa-comment-dots"></i></button>
+    </div>
+
+    <div id="weather-container"></div>
+
+    <header>
+        <div class="logo">Enes D.</div> <!-- Mobilde boş kalmaması için opsiyonel, display:none var css'de -->
+        
+        <!-- Mobile Menu Toggle (3 Çizgi) -->
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <nav class="nav-container" id="nav-menu">
+            <ul>
+                <!-- MENÜ LİNKLERİ (Tıklayınca kapanması için onclick eklendi) -->
+                <li><a href="?view=biography" target="_blank" data-lang="nav_bio" onclick="toggleMenu()">Hakkımda</a></li>
+                <li><a href="?view=about" target="_blank" data-lang="nav_about" onclick="toggleMenu()">Uzmanlıklar</a></li>
+                <li><a href="?view=projects" target="_blank" data-lang="nav_projects" onclick="toggleMenu()">Projeler</a></li>
+                <li><a href="?view=contact" target="_blank" data-lang="nav_contact" onclick="toggleMenu()">Üyelik</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="lang-btn active" id="btn-tr" onclick="setLanguage('tr')">TR</button>
+                <span class="lang-separator">/</span>
+                <button class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
+                
+                <button id="theme-toggle" class="theme-toggle-btn" style="margin-left: 10px;">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container reveal active">
+            <!-- YAZI ÜSTTE -->
+            <h1>Enes Daşdan</h1>
+
+            <!-- FOTOĞRAF ALTTA -->
+            <div class="profile-img-container">
+                <img src="IMG_3437.png.png" alt="Enes Daşdan" onerror="this.src='https://via.placeholder.com/220?text=Profil'">
+            </div>
+
+            <p data-lang="hero_desc">Dijital deneyimleri sanata, kodları akıcı hikayelere dönüştürüyorum. Modern, hızlı ve estetik çözümler üzerine odaklanmış bir geliştiriciyim.</p>
+            <div class="btn-wrapper">
+                <a href="#projects" class="btn-liquid" style="text-decoration:none;" data-lang="btn_projects">Projeleri Keşfet</a>
+                <a href="#contact" id="hero-auth-btn" data-lang="btn_signup">Üye Ol</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- HAKKIMDA (BİYOGRAFİ - MERKEZİ AKIŞ) -->
+    <section id="biography">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title" data-lang="title_bio">Hakkımda & Eğitim</h2>
+            </div>
+            
+            <!-- Biyografi -->
+            <div class="bio-container reveal">
+                <div class="bio-text">
+                    <p data-lang="bio_text_1">Merhaba, ben Enes. 2006 yılında Çorum Alaca'da dünyaya geldim. Eğitim hayatıma Hüseyin Gazi İlkokulu'nda başladım ve ardından İmamhatip Ortaokulu'nu tamamladım. Teknolojiye olan ilgim küçük yaşlarda başladı ve lise eğitimimle birlikte bu alanda kendimi geliştirmeye odaklandım.</p>
+                    <p data-lang="bio_text_2">Alaca Mesleki ve Teknik Anadolu Lisesi'ndeki eğitimimin ardından, şu anda Sinop Ayancık Meslek Yüksek Okulu'nda İnternet ve Ağ Teknolojileri bölümünde öğrenimime devam ediyorum. Hem teorik hem de pratik bilgilerimi birleştirerek dijital dünyada iz bırakmayı hedefliyorum.</p>
+                </div>
+            </div>
+
+            <!-- Merkezi Zaman Çizelgesi (Zig-Zag) -->
+            <div class="education-flow reveal">
+                <!-- Orta Çizgi -->
+                <div class="flow-line"></div>
+
+                <!-- Kart 1: Üniversite (SOLDA) -->
+                <div class="flow-card">
+                    <i class="fas fa-university flow-icon"></i>
+                    <h3 class="flow-title" data-lang="edu_1_title">Sinop Ayancık MYO</h3>
+                    <p class="flow-desc" data-lang="edu_1_desc">İnternet ve Ağ Teknolojileri</p>
+                </div>
+
+                <!-- Kart 2: Lise (SAĞDA) -->
+                <div class="flow-card">
+                    <i class="fas fa-school flow-icon"></i>
+                    <h3 class="flow-title" data-lang="edu_2_title">Alaca Mesleki ve Teknik A.L.</h3>
+                    <p class="flow-desc" data-lang="edu_2_desc">Lise Eğitimi</p>
+                </div>
+
+                <!-- Kart 3: Ortaokul (SOLDA) -->
+                <div class="flow-card">
+                    <i class="fas fa-book-reader flow-icon"></i>
+                    <h3 class="flow-title" data-lang="edu_3_title">İmamhatip Ortaokulu</h3>
+                    <p class="flow-desc" data-lang="edu_3_desc">Ortaokul Eğitimi</p>
+                </div>
+
+                <!-- Kart 4: İlkokul (SAĞDA) -->
+                <div class="flow-card">
+                    <i class="fas fa-pencil-alt flow-icon"></i>
+                    <h3 class="flow-title" data-lang="edu_4_title">Hüseyin Gazi İlkokulu</h3>
+                    <p class="flow-desc" data-lang="edu_4_desc">İlkokul Eğitimi</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- UZMANLIK ALANLARI -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title" data-lang="title_about">Uzmanlık Alanlarım</h2>
+            </div>
+            <div class="grid-3">
+                <div class="info-card reveal">
+                    <div class="icon-wrap"><i class="fas fa-code" style="color: var(--primary);"></i></div>
+                    <h3 data-lang="skill_web">Site Geliştirme</h3>
+                    <div class="skill-wrapper">
+                        <div class="skill-item"><div class="skill-info"><span>Frontend (React/HTML)</span><span>98%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:98%"></div></div></div>
+                        <div class="skill-item"><div class="skill-info"><span>Backend (Node/Python)</span><span>85%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:85%"></div></div></div>
+                    </div>
+                </div>
+                <div class="info-card reveal">
+                    <div class="icon-wrap"><i class="fas fa-gamepad" style="color: var(--primary);"></i></div>
+                    <h3 data-lang="skill_game">Oyun Tasarlama</h3>
+                    <div class="skill-wrapper">
+                        <div class="skill-item"><div class="skill-info"><span data-lang="skill_mech">Mekanik</span><span>80%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:80%"></div></div></div>
+                        <div class="skill-item"><div class="skill-info"><span>Unity / C#</span><span>75%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:75%"></div></div></div>
+                    </div>
+                </div>
+                <div class="info-card reveal">
+                    <div class="icon-wrap"><i class="fas fa-paint-brush" style="color: var(--primary);"></i></div>
+                    <h3 data-lang="skill_design">Grafik Tasarlama</h3>
+                    <div class="skill-wrapper">
+                        <div class="skill-item"><div class="skill-info"><span data-lang="skill_uiux">UI/UX Tasarımı</span><span>92%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:92%"></div></div></div>
+                        <div class="skill-item"><div class="skill-info"><span>Figma / Photoshop</span><span>90%</span></div><div class="skill-bar"><div class="skill-fill" style="--w:90%"></div></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJELER -->
+    <section id="projects">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2 class="section-title" data-lang="title_projects">Seçkin Projeler</h2>
+            </div>
+            <div class="grid-3">
+                <div class="project-card reveal">
+                    <i class="fas fa-desktop" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1.5rem;"></i>
+                    <h3>Neon Dashboard</h3>
+                    <p data-lang="proj_1_desc">Karanlık mod odaklı modern yönetim paneli tasarımı ve kodlaması.</p>
+                    <div class="tech-stack"><span>React</span> <span>CSS Grid</span></div>
+                </div>
+                <div class="project-card reveal">
+                    <i class="fas fa-shopping-cart" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1.5rem;"></i>
+                    <h3>E-Ticaret UI</h3>
+                    <p data-lang="proj_2_desc">Minimalist alışveriş arayüzü tasarımı ve kullanıcı deneyimi optimizasyonu.</p>
+                    <div class="tech-stack"><span>Vue.js</span> <span>Tailwind</span></div>
+                </div>
+                <div class="project-card reveal">
+                    <i class="fas fa-feather-alt" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 1.5rem;"></i>
+                    <h3 data-lang="proj_3_title">Kozmik Blog</h3>
+                    <p data-lang="proj_3_desc">Tipografi odaklı kişisel blog teması.</p>
+                    <div class="tech-stack"><span>Next.js</span> <span>MDX</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ÜYELİK PORTALI -->
+    <section id="contact">
+        <div class="container">
+            <div class="section-header reveal"><h2 class="section-title" data-lang="title_auth">Üyelik Portalı</h2></div>
+            <div class="auth-wrapper reveal">
+                <div id="status-msg" class="status-msg"></div>
+                <div id="auth-ui" class="auth-card">
+                    <div class="auth-toggle">
+                        <button class="auth-btn active" onclick="toggleAuth('login')" data-lang="btn_login_toggle">Giriş Yap</button>
+                        <button class="auth-btn" onclick="toggleAuth('register')" data-lang="btn_register_toggle">Kayıt Ol</button>
+                    </div>
+                    <form id="login-form">
+                        <input type="email" id="login-email" placeholder="E-posta Adresi" data-lang-placeholder="ph_email" required>
+                        <input type="password" id="login-password" placeholder="Şifre" data-lang-placeholder="ph_pass" required>
+                        <button type="submit" style="width:100%; padding:1.2rem; border-radius:12px; background:var(--primary); border:none; color:white; font-weight:700; cursor:pointer;" data-lang="btn_login_submit">Giriş Yap</button>
+                    </form>
+                    <form id="register-form" style="display:none;">
+                        <input type="text" id="reg-name" placeholder="Adınız Soyadınız" data-lang-placeholder="ph_name" required>
+                        <input type="email" id="reg-email" placeholder="E-posta Adresi" data-lang-placeholder="ph_email" required>
+                        <input type="password" id="reg-password" placeholder="Şifre (Min 6 Karakter)" data-lang-placeholder="ph_pass_min" required>
+                        <button type="submit" style="width:100%; padding:1.2rem; border-radius:12px; background:var(--primary); border:none; color:white; font-weight:700; cursor:pointer;" data-lang="btn_register_submit">Kayıt Ol</button>
+                    </form>
+                </div>
+                <div id="user-dashboard" class="auth-card" style="display:none;">
+                    <div style="text-align:center;">
+                        <h3 id="user-name" style="font-size: 2rem;"></h3> <!-- SADECE İSİM YAZACAK -->
+                        <p id="user-email" style="font-size:1.1rem; color:var(--text-muted); margin-bottom:2rem;"></p>
+                        <div id="admin-panel" style="display:none; text-align:left; border-top:1px solid var(--glass-border); padding-top:1.5rem;">
+                            <h4 style="color:var(--primary); margin-bottom:1rem;" data-lang="admin_list_title">Üye Listesi (Yönetici)</h4>
+                            <div style="overflow-x:auto;"><table class="admin-table"><tbody id="member-list-body"></tbody></table></div>
+                        </div>
+                        <button onclick="logout()" style="width:100%; padding:1rem; border-radius:10px; background:none; border:2px solid var(--danger); color:var(--danger); font-weight:700; cursor:pointer; margin-top:2.5rem;" data-lang="btn_logout">Çıkış Yap</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="socials">
+            <a href="https://www.instagram.com/enes.dsdn" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:enesdasdan43@gmail.com"><i class="far fa-envelope"></i></a>
+        </div>
+        <p>&copy; 2025 Enes Daşdan | Smart Portfolio</p>
+    </footer>
+
+    <script>
+        // --- MOBİL MENÜ FONKSİYONU ---
+        function toggleMenu() {
+            const nav = document.getElementById('nav-menu');
+            const icon = document.querySelector('.menu-toggle i');
+            nav.classList.toggle('active');
+            
+            if(nav.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+
+        // --- ÇEVİRİ VERİSİ ---
+        const translations = {
+            tr: {
+                nav_bio: "Hakkımda",
+                nav_about: "Uzmanlıklar",
+                nav_projects: "Projeler",
+                nav_contact: "Üyelik",
+                welcome_boss: "HOŞGELDİN<br>PATRON",
+                bot_welcome: "Merhaba kanka! Ben Enes'in asistanıyım. Sana nasıl yardımcı olabilirim?",
+                bot_placeholder: "Bir soru sor...",
+                hero_desc: "Dijital deneyimleri sanata, kodları akıcı hikayelere dönüştürüyorum. Modern, hızlı ve estetik çözümler üzerine odaklanmış bir geliştiriciyim.",
+                btn_projects: "Projeleri Keşfet",
+                btn_signup: "Üye Ol",
+                btn_panel: "Panele Git",
+                title_bio: "Hakkımda & Eğitim",
+                bio_text_1: "Merhaba, ben Enes. 2006 yılında Çorum Alaca'da dünyaya geldim. Eğitim hayatıma Hüseyin Gazi İlkokulu'nda başladım ve ardından İmamhatip Ortaokulu'nu tamamladım. Teknolojiye olan ilgim küçük yaşlarda başladı ve lise eğitimimle birlikte bu alanda kendimi geliştirmeye odaklandım.",
+                bio_text_2: "Alaca Mesleki ve Teknik Anadolu Lisesi'ndeki eğitimimin ardından, şu anda Sinop Ayancık Meslek Yüksek Okulu'nda İnternet ve Ağ Teknolojileri bölümünde öğrenimime devam ediyorum. Hem teorik hem de pratik bilgilerimi birleştirerek dijital dünyada iz bırakmayı hedefliyorum.",
+                edu_1_title: "Sinop Ayancık MYO",
+                edu_1_desc: "İnternet ve Ağ Teknolojileri",
+                edu_2_title: "Alaca Mesleki ve Teknik A.L.",
+                edu_2_desc: "Lise Eğitimi",
+                edu_3_title: "İmamhatip Ortaokulu",
+                edu_3_desc: "Ortaokul Eğitimi",
+                edu_4_title: "Hüseyin Gazi İlkokulu",
+                edu_4_desc: "İlkokul Eğitimi",
+                title_about: "Uzmanlık Alanlarım",
+                skill_web: "Site Geliştirme",
+                skill_game: "Oyun Tasarlama",
+                skill_design: "Grafik Tasarlama",
+                skill_mech: "Mekanik",
+                skill_uiux: "UI/UX Tasarımı",
+                title_projects: "Seçkin Projeler",
+                proj_1_desc: "Karanlık mod odaklı modern yönetim paneli tasarımı ve kodlaması.",
+                proj_2_desc: "Minimalist alışveriş arayüzü tasarımı ve kullanıcı deneyimi optimizasyonu.",
+                proj_3_title: "Kozmik Blog",
+                proj_3_desc: "Tipografi odaklı kişisel blog teması.",
+                title_auth: "Üyelik Portalı",
+                btn_login_toggle: "Giriş Yap",
+                btn_register_toggle: "Kayıt Ol",
+                ph_email: "E-posta Adresi",
+                ph_pass: "Şifre",
+                ph_name: "Adınız Soyadınız",
+                ph_pass_min: "Şifre (Min 6 Karakter)",
+                btn_login_submit: "Giriş Yap",
+                btn_register_submit: "Kayıt Ol",
+                admin_list_title: "Üye Listesi (Yönetici)",
+                btn_logout: "Çıkış Yap",
+                back_home: '<i class="fas fa-arrow-left"></i> Ana Sayfa'
+            },
+            en: {
+                nav_bio: "About Me",
+                nav_about: "Expertise",
+                nav_projects: "Projects",
+                nav_contact: "Membership",
+                welcome_boss: "WELCOME<br>BOSS",
+                bot_welcome: "Hey buddy! I'm Enes's assistant. How can I help you?",
+                bot_placeholder: "Ask a question...",
+                hero_desc: "I transform digital experiences into art and code into fluid stories. I am a developer focused on modern, fast, and aesthetic solutions.",
+                btn_projects: "Explore Projects",
+                btn_signup: "Sign Up",
+                btn_panel: "Go to Panel",
+                title_bio: "About Me & Education",
+                bio_text_1: "Hello, I'm Enes. I was born in 2006 in Çorum Alaca. I started my education at Hüseyin Gazi Primary School and then completed İmamhatip Middle School. My interest in technology started at a young age and I focused on improving myself in this field during my high school education.",
+                bio_text_2: "After my education at Alaca Vocational and Technical Anatolian High School, I am currently continuing my education in the Internet and Network Technologies department at Sinop Ayancık Vocational School. I aim to leave a mark in the digital world by combining my theoretical and practical knowledge.",
+                edu_1_title: "Sinop Ayancık Voc. School",
+                edu_1_desc: "Internet and Network Technologies",
+                edu_2_title: "Alaca Vocational Tech. HS",
+                edu_2_desc: "High School Education",
+                edu_3_title: "Imam Hatip Middle School",
+                edu_3_desc: "Middle School Education",
+                edu_4_title: "Hüseyin Gazi Primary School",
+                edu_4_desc: "Primary School Education",
+                title_about: "My Expertise",
+                skill_web: "Web Development",
+                skill_game: "Game Design",
+                skill_design: "Graphic Design",
+                skill_mech: "Mechanics",
+                skill_uiux: "UI/UX Design",
+                title_projects: "Selected Projects",
+                proj_1_desc: "Dark mode oriented modern dashboard design and coding.",
+                proj_2_desc: "Minimalist shopping interface design and user experience optimization.",
+                proj_3_title: "Cosmic Blog",
+                proj_3_desc: "Typography-focused personal blog theme.",
+                title_auth: "Membership Portal",
+                btn_login_toggle: "Login",
+                btn_register_toggle: "Register",
+                ph_email: "Email Address",
+                ph_pass: "Password",
+                ph_name: "Full Name",
+                ph_pass_min: "Password (Min 6 Chars)",
+                btn_login_submit: "Login",
+                btn_register_submit: "Sign Up",
+                admin_list_title: "Member List (Admin)",
+                btn_logout: "Log Out",
+                back_home: '<i class="fas fa-arrow-left"></i> Home'
+            }
+        };
+
+        let currentLang = localStorage.getItem('lang') || 'tr';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+
+            // Butonları güncelle
+            document.getElementById('btn-tr').classList.toggle('active', lang === 'tr');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+
+            // Text içeriklerini güncelle
+            document.querySelectorAll('[data-lang]').forEach(el => {
+                const key = el.getAttribute('data-lang');
+                if (translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+
+            // Placeholderları güncelle
+            document.querySelectorAll('[data-lang-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-lang-placeholder');
+                if (translations[lang][key]) {
+                    el.placeholder = translations[lang][key];
+                }
+            });
+
+            // Ana sayfaya dön butonu varsa güncelle
+            const backBtn = document.querySelector('.back-to-home');
+            if (backBtn) backBtn.innerHTML = translations[lang]['back_home'];
+
+            // Hero butonu durum kontrolü (eğer giriş yapılmışsa text farklı olabilir)
+            checkSession();
+        }
+
+        // --- BAŞLATMA ---
+        function startApp() {
+            const bar = document.getElementById('main-loader-bar');
+            let width = 0;
+            const interval = setInterval(() => {
+                width += 5;
+                if(bar) bar.style.width = width + '%';
+                if (width >= 100) {
+                    clearInterval(interval);
+                    document.body.classList.add('loaded');
+                    document.body.style.overflow = 'auto';
+                }
+            }, 50);
+
+            setLanguage(currentLang); // Dili ayarla
+            checkSession();
+            fetchWeather();
+            updateThemeIcon();
+            checkViewMode();
+        }
+        document.addEventListener('DOMContentLoaded', startApp);
+
+        // --- GÖRÜNÜM MODU (YENİ SEKME İÇİN) ---
+        function checkViewMode() {
+            const view = new URLSearchParams(window.location.search).get('view');
+            if (view) {
+                document.body.classList.add('only-section', `only-section-${view}`);
+                document.body.classList.add('loaded');
+                document.body.style.overflow = 'auto';
+
+                const backBtn = document.createElement('a');
+                backBtn.href = window.location.pathname; 
+                backBtn.className = 'back-to-home';
+                backBtn.innerHTML = translations[currentLang]['back_home'];
+                document.body.appendChild(backBtn);
+            }
+        }
+
+        // --- TEMA VE SİMGE ---
+        const themeBtn = document.getElementById('theme-toggle');
+        function updateThemeIcon() {
+            const isLight = document.body.classList.contains('light-mode');
+            const icon = themeBtn.querySelector('i');
+            icon.className = isLight ? 'fas fa-sun' : 'fas fa-moon';
+        }
+        if (localStorage.getItem('theme') === 'light') document.body.classList.add('light-mode');
+        themeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('light-mode');
+            localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+            updateThemeIcon();
+        });
+
+        // --- HAVA DURUMU ---
+        async function fetchWeather() {
+            try {
+                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=41.9442&longitude=34.5861&current_weather=true');
+                const data = await res.json();
+                const temp = data.current_weather.temperature;
+                const code = data.current_weather.weathercode;
+                
+                const widget = document.createElement('div');
+                widget.className = 'weather-widget';
+                widget.innerHTML = `Ayancık: ${temp}°C`;
+                document.body.appendChild(widget);
+
+                const container = document.getElementById('weather-container');
+                if ([71, 73, 75, 85, 86].includes(code)) {
+                    for(let i=0; i<30; i++) {
+                        let s = document.createElement('div'); s.className='snowflake'; s.textContent='❄';
+                        s.style.left = Math.random()*100+'%'; s.style.fontSize = Math.random()*20+10+'px';
+                        s.style.animationDuration = Math.random()*3+2+'s'; container.appendChild(s);
+                    }
+                } else if ([51, 53, 55, 61, 63, 65, 80, 81, 82].includes(code)) {
+                    for(let i=0; i<60; i++) {
+                        let r = document.createElement('div'); r.className='raindrop';
+                        r.style.left = Math.random()*100+'%'; r.style.animationDuration = Math.random()*0.5+0.5+'s';
+                        container.appendChild(r);
+                    }
+                } else {
+                    for(let i=0; i<50; i++) {
+                        let s = document.createElement('div'); s.className='star';
+                        s.style.left = Math.random()*100+'%'; s.style.top = Math.random()*100+'%';
+                        s.style.width = s.style.height = Math.random()*3+'px';
+                        container.appendChild(s);
+                    }
+                }
+            } catch (e) { console.error("Hava durumu hatası."); }
+        }
+
+        // --- GELİŞMİŞ CHATBOT BEYNİ (V3.0 - KAPSAMLI & SOHBETCİ) ---
+        function getBotResponse(input) {
+            const txt = input.toLowerCase();
+            const isEn = currentLang === 'en';
+
+            // Yardımcı fonksiyonlar
+            const has = (keywords) => keywords.some(k => txt.includes(k));
+            const random = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+            // 1. ÖZEL DURUMLAR & EYLEMLER
+            if (has(['sevgili', 'manita', 'aşk', 'girlfriend', 'gf', 'partner', 'yenge', 'ilişki', 'sap', 'yalnız'])) {
+                return { text: isEn ? "He has been alone for 19 years." : "Kendisi 19 yıldır yalnız." };
+            }
+            
+            if (has(['instagram', 'insta', 'follow', 'takip'])) {
+                return { 
+                    text: isEn ? "You can follow Enes here: <strong>@enes.dsdn</strong>. Shall I open it?" : "Enes'i buradan takip edebilirsin: <strong>@enes.dsdn</strong>. Açmamı ister misin?", 
+                    action: () => setTimeout(() => window.open('https://www.instagram.com/enes.dsdn', '_blank'), 2000) 
+                };
+            }
+            
+            if (has(['mail', 'email', 'ulaş', 'contact', 'iletişim', 'mesaj', 'numara', 'telefon'])) {
+                return { 
+                    text: isEn ? "Best way to reach him: <strong>enesdasdan43@gmail.com</strong>. Opening mail app..." : "En hızlı ulaşım yolu: <strong>enesdasdan43@gmail.com</strong>. Mail uygulamasını açıyorum...", 
+                    action: () => setTimeout(() => window.location.href = 'mailto:enesdasdan43@gmail.com', 2000) 
+                };
+            }
+
+            if (has(['proje', 'project', 'yap', 'github', 'kod', 'code', 'site', 'website'])) {
+                return { 
+                    text: isEn ? "Enes has built great projects! Neon dashboards, e-commerce sites... Want to see?" : "Enes harika işler çıkardı! Neon paneller, e-ticaret siteleri... Görmek ister misin?", 
+                    action: () => setTimeout(() => window.location.href='#projects', 1500) 
+                };
+            }
+
+            // 2. GÜNLÜK SOHBET & DURUM SORMA
+            if (has(['nasılsın', 'naber', 'ne haber', 'nasıl gidiyor', 'how are you', 'whats up'])) {
+                const answers = isEn 
+                    ? ["I'm great, running on electricity! How are you?", "Feeling super fast today! You?", "Just chillin' in the server. How about you?"]
+                    : ["Harikayım, elektrikler kesilmediği sürece bomba gibiyim! Sen nasılsın?", "Kodlarım tıkırında çalışıyor. Sende durumlar ne?", "Sunucuda keyif çatıyorum. Senden naber?"];
+                return { text: random(answers) };
+            }
+
+            if (has(['iyiyim', 'iyi', 'süper', 'fena değil', 'idare', 'good', 'fine', 'great'])) {
+                 const answers = isEn 
+                    ? ["Glad to hear that! So, are you looking for a developer?", "That's the spirit! What brought you here today?", "Awesome! Do you like coding too?"]
+                    : ["Bunu duyduğuma sevindim! Peki, bir geliştirici mi arıyorsun?", "Harika! Bugün seni buraya hangi rüzgar attı?", "Süper! Kodlamayla aran nasıl?"];
+                return { text: random(answers) };
+            }
+            
+            if (has(['kötü', 'kötüyüm', 'bad', 'not good', 'sad', 'üzgün'])) {
+                 return { text: isEn ? "Oh no! Maybe looking at Enes's cool projects will cheer you up?" : "Üzüldüm :( Belki Enes'in havalı projelerine bakmak keyfini yerine getirir?" };
+            }
+
+            // 3. KİŞİSEL BİLGİLER
+            if (has(['kimsin', 'nesin', 'who are you', 'bot', 'yapay zeka', 'ai'])) {
+                return { text: isEn ? "I am Enes's digital assistant. I live in this browser!" : "Ben Enes'in dijital asistanıyım. Bu tarayıcının içinde yaşıyorum! Bazen Enes kodlarken bana kahve döker diye korkuyorum." };
+            }
+
+            if (has(['enes', 'sahibi', 'yapan', 'developer', 'geliştirici', 'kimdir', 'who is enes'])) {
+                return { text: isEn ? "Enes (born 2006) is a Full-Stack wizard studying in Sinop. He turns coffee into code." : "Enes (2006 doğumlu), Sinop'ta okuyan bir Full-Stack büyücüsüdür. Kahveyi koda dönüştürme yeteneğine sahiptir." };
+            }
+
+            if (has(['yaş', 'kaç yaşında', 'age', 'old'])) {
+                return { text: isEn ? "He is 19. Young enough to learn fast, old enough to code serious stuff." : "19 yaşında. Hızlı öğrenmek için genç, ciddi işler yapmak için yeterince olgun." };
+            }
+
+            // 4. HOBİLER & EĞLENCE
+            if (has(['hobi', 'neler yapar', 'sev', 'like', 'hobby', 'interest'])) {
+                return { text: isEn ? "He loves coding, gaming, and designing UI. Also, he probably spends too much time debugging." : "Kod yazmayı, oyun oynamayı ve UI tasarlamayı sever. Bir de muhtemelen hata ayıklamakla (debug) çok vakit harcıyor." };
+            }
+
+            if (has(['oyun', 'game', 'play'])) {
+                return { text: isEn ? "He likes mechanics! Unity & C# are his playground." : "Mekaniklere bayılır! Unity ve C# onun oyun alanı." };
+            }
+            
+            if (has(['şaka', 'joke', 'komik', 'güldür'])) {
+                const jokes = isEn 
+                    ? ["Why do programmers prefer dark mode? Because light attracts bugs!", "There are 10 types of people: Those who understand binary, and those who don't."]
+                    : ["Programcılar neden karanlık modu sever? Çünkü ışık böcekleri (bug) çeker! 🐛", "Bir yazılımcı bakkala gitmiş, 'Yumurta var mı?' demiş. 'Var' demişler, 10 tane almış dönmüş."];
+                return { text: random(jokes) };
+            }
+
+            // 5. GENEL SELAMLAŞMA
+            if (has(['merhaba', 'selam', 'hi', 'hello', 'hey', 'sa', 'günaydın', 'tünaydın'])) {
+                const greetings = isEn 
+                    ? ["Hello there! 👋 How can I help you today?", "Hey! Nice to see you.", "Greetings! Ready to explore?"]
+                    : ["Selamlar! 👋 Hoş geldin, nasıl yardımcı olabilirim?", "Merhaba! Seni görmek güzel.", "Selam! Sitenin derinliklerine dalmaya hazır mısın?"];
+                return { text: random(greetings) };
+            }
+
+            // 6. DÜŞÜNDÜRÜCÜ / RANDOM SORULAR (SOHBET DEVAMLILIĞI)
+            const randomQuestions = isEn
+                ? ["By the way, do you prefer Frontend or Backend?", "Have you checked the projects section yet?", "Do you like dark mode or light mode more?"]
+                : ["Bu arada, Frontend mi daha çok ilgini çeker Backend mi?", "Projeler kısmına göz attın mı?", "Karanlık mod mu seversin aydınlık mı?"];
+
+            const fallbacks = isEn 
+                ? ["I'm still learning everyday. Can you ask about Enes's skills?", "Interesting point! " + random(randomQuestions), "I didn't catch that fully. " + random(randomQuestions)]
+                : ["Bunu tam anlayamadım, her gün yeni şeyler öğreniyorum. Enes'in yeteneklerini sorsan?", "İlginç bir konu! " + random(randomQuestions), "Tam yakalayamadım. " + random(randomQuestions)];
+            
+            return { text: random(fallbacks) };
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const msg = input.value.trim();
+            if(!msg) return;
+            addMsg(msg, 'user');
+            input.value = '';
+            
+            const thinkingTime = Math.floor(Math.random() * 800) + 600;
+
+            setTimeout(() => {
+                const response = getBotResponse(msg.toLocaleLowerCase('tr-TR')); // tr-TR lowercase helps even for English mostly
+                const botText = typeof response === 'object' ? response.text : response;
+                const botAction = typeof response === 'object' ? response.action : null;
+                addMsg(botText, 'bot');
+                if (botAction) botAction();
+            }, thinkingTime);
+        }
+
+        function addMsg(text, sender) {
+            const b = document.getElementById('chat-body');
+            const d = document.createElement('div');
+            d.className = `message ${sender}`;
+            d.innerHTML = text;
+            b.appendChild(d);
+            b.scrollTop = b.scrollHeight;
+        }
+
+        // --- AUTH ---
+        const ADMIN_EMAIL = 'enesdasdan43@gmail.com';
+        const ADMIN_PASS = '391739';
+
+        function checkSession() {
+            const name = localStorage.getItem('sessionUserName');
+            const email = localStorage.getItem('sessionUserEmail');
+            const heroBtn = document.getElementById('hero-auth-btn');
+
+            if (name && email) {
+                document.getElementById('auth-ui').style.display = 'none';
+                document.getElementById('user-dashboard').style.display = 'block';
+                document.getElementById('user-email').innerText = email;
+                document.getElementById('chatbot-widget').style.display = 'block';
+                
+                if(heroBtn) {
+                    heroBtn.innerText = translations[currentLang]['btn_panel'];
+                    heroBtn.onclick = (e) => { e.preventDefault(); location.href = '#contact'; return false; };
+                }
+
+                if (email === ADMIN_EMAIL) {
+                    document.getElementById('user-name').innerText = currentLang === 'en' ? "Boss" : "Patron";
+                    document.getElementById('admin-panel').style.display = 'block';
+                    loadMembers(); 
+                } else {
+                    document.getElementById('user-name').innerText = `${name}`;
+                }
+            } else {
+                if(heroBtn) {
+                      heroBtn.innerText = translations[currentLang]['btn_signup'];
+                      heroBtn.onclick = null; // Default link behavior
+                }
+            }
+        }
+
+        document.getElementById('login-form').addEventListener('submit', e => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value, pass = document.getElementById('login-password').value;
+            const db = JSON.parse(localStorage.getItem('enes_portfolio_users') || '[]');
+            const user = db.find(u => u.email === email && u.password === pass);
+            
+            if (email === ADMIN_EMAIL && pass === ADMIN_PASS) {
+                localStorage.setItem('sessionUserName', "Enes");
+                localStorage.setItem('sessionUserEmail', email);
+                playAdminAnimation();
+                setTimeout(() => { document.getElementById('admin-overlay').style.display = 'none'; checkSession(); }, 3500);
+            } else if (user) {
+                localStorage.setItem('sessionUserName', user.name);
+                localStorage.setItem('sessionUserEmail', email);
+                playUserAnimation(user.name);
+                setTimeout(() => { document.getElementById('user-welcome-overlay').style.display = 'none'; checkSession(); }, 2500);
+            } else { showMessage(currentLang === 'en' ? "Login failed!" : "Hatalı giriş!", "error"); }
+        });
+
+        document.getElementById('register-form').addEventListener('submit', e => {
+            e.preventDefault();
+            const name = document.getElementById('reg-name').value, email = document.getElementById('reg-email').value, pass = document.getElementById('reg-password').value;
+            let db = JSON.parse(localStorage.getItem('enes_portfolio_users') || '[]');
+            if (db.find(u => u.email === email)) { showMessage(currentLang === 'en' ? "Already registered!" : "Zaten kayıtlısın!", "error"); return; }
+            db.push({name, email, password: pass, joinedAt: new Date().toISOString()});
+            localStorage.setItem('enes_portfolio_users', JSON.stringify(db));
+            localStorage.setItem('sessionUserName', name);
+            localStorage.setItem('sessionUserEmail', email);
+            playUserAnimation(name); 
+            setTimeout(() => { document.getElementById('user-welcome-overlay').style.display = 'none'; checkSession(); }, 2500);
+        });
+
+        window.logout = () => { localStorage.removeItem('sessionUserName'); localStorage.removeItem('sessionUserEmail'); location.reload(); };
+
+        function toggleChat() { document.getElementById('chat-window').style.display = document.getElementById('chat-window').style.display === 'flex' ? 'none' : 'flex'; }
+        window.addEventListener('scroll', () => { document.querySelectorAll('.reveal').forEach(r => { if(r.getBoundingClientRect().top < window.innerHeight - 50) r.classList.add('active'); }); });
+        function loadMembers() { const db = JSON.parse(localStorage.getItem('enes_portfolio_users') || '[]'); document.getElementById('member-list-body').innerHTML = db.map(m => `<tr><td>${m.name}</td><td>${m.email}</td></tr>`).join(''); }
+        function playAdminAnimation() { document.getElementById('admin-overlay').style.display = 'flex'; const c = document.getElementById('admin-text-container'); c.innerHTML = ''; ["> SYNCING...", "> AUTH OK", "> ACCESS: ADMIN"].forEach((t, i) => setTimeout(() => { let p = document.createElement('div'); p.className='admin-text'; p.innerText=t; document.getElementById('admin-text-container').appendChild(p); }, i*600)); setTimeout(() => document.getElementById('admin-final-text').style.display='block', 2000); }
+        function playUserAnimation(n) { document.getElementById('user-welcome-overlay').style.display = 'flex'; document.getElementById('welcome-user-name').innerText = `${n}`; }
+        function showMessage(msg, type) { const s = document.getElementById('status-msg'); s.innerText = msg; s.className = `status-msg ${type}`; s.style.display = 'block'; setTimeout(() => s.style.display = 'none', 3000); }
+        function toggleAuth(type) {
+            const isLogin = type === 'login';
+            document.getElementById('login-form').style.display = isLogin ? 'block' : 'none';
+            document.getElementById('register-form').style.display = isLogin ? 'none' : 'block';
+            const btns = document.querySelectorAll('.auth-btn');
+            btns[0].classList.toggle('active', isLogin);
+            btns[1].classList.toggle('active', !isLogin);
+        }
+    </script>
+</body>
+</html>

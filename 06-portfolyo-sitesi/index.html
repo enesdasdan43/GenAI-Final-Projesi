@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-KJTK2KH660"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-KJTK2KH660');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- --- SEO AYARLARI --- -->
+    <title>Enes Daşdan | Full-Stack Geliştirici & Oyun Tasarımcısı</title>
+    <meta name="description" content="Enes Daşdan'ın kişisel portfolyo sitesi. Modern web tasarımı, oyun geliştirme, UI/UX projeleri ve dijital çözümler hakkında bilgi alın.">
+    <meta name="keywords" content="Enes Daşdan, Web Geliştirici, Oyun Tasarımcısı, Frontend, Backend, UI/UX, Portfolyo, Çorum, Sinop, HTML, CSS, JavaScript">
+    <meta name="author" content="Enes Daşdan">
+    <meta name="robots" content="index, follow">
+
+    <!-- Sosyal Medya Paylaşım -->
+    <meta property="og:title" content="Enes Daşdan | Smart Portfolio">
+    <meta property="og:description" content="Dijital deneyimleri sanata, kodları akıcı hikayelere dönüştürüyorum. Projelerimi keşfedin.">
+    <meta property="og:image" content="IMG_3437.png.png">
+    <meta property="og:url" content="https://enesdasdan.com">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="tr_TR">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Enes Daşdan | Smart Portfolio">
+    <meta name="twitter:description" content="Dijital deneyimleri sanata dönüştürüyorum. Web ve oyun geliştirme portfolyosu.">
+    <meta name="twitter:image" content="IMG_3437.png.png">
+
+    <!-- Fontlar -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&family=Fira+Code:wght@300;400;500;600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            /* MOR & BEYAZ PALETİ: DARK MODE */
+            --bg-color: #050505;
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
+            --primary: #7c3aed; /* Ana Mor */
+            --secondary: #d8b4fe; /* Açık Mor */
+            --accent-gradient: linear-gradient(180deg, #7c3aed, #d8b4fe); /* Dikey Gradient */
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --nav-bg: rgba(5, 5, 5, 0.85);
+            --card-shadow: 0 10px 30px rgba(109, 40, 217, 0.15);
+            --success: #8b5cf6;
+            --danger: #ef4444;
+            --admin-color: #d8b4fe;
+        }
+
+        body.light-mode {
+            --bg-color: #f5f3ff;
+            --text-main: #1e1b4b;
+            --text-muted: #4c1d95;
+            --primary: #7c3aed;
+            --secondary: #4c1d95;
+            --accent-gradient: linear-gradient(180deg, #7c3aed, #4c1d95);
+            --glass-bg: rgba(124, 58, 237, 0.05);
+            --glass-border: rgba(124, 58, 237, 0.1);
+            --nav-bg: rgba(245, 243, 255, 0.85);
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            --admin-color: #4c1d95;
+        }
+
+        /* GENEL STİLLER */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Rubik', sans-serif; scroll-behavior: smooth; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
+        body { background-color: var(--bg-color); color: var(--text-main); overflow-x: hidden; min-height: 100vh; position: relative; font-size: 16px; }
+
+        /* INTRO */
+        #intro-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: #000; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1); pointer-events: none; }
+        .intro-content h1 { font-size: 3rem; font-weight: 900; color: #fff; margin-bottom: 20px; opacity: 0; animation: fadeInUp 1s ease 0.5s forwards; }
+        .loader-container { width: 200px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; opacity: 0; animation: fadeIn 0.5s ease 1s forwards; }
+        .loader-bar { width: 0%; height: 100%; background: var(--primary); box-shadow: 0 0 10px var(--primary); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { to { opacity: 1; } }
+        body.loaded #intro-overlay { transform: translateY(-100%); }
+
+        /* HEADER & NAV */
+        header { 
+            position: fixed; top: 0; width: 100%; padding: 0.7rem 5%; 
+            display: flex; justify-content: flex-end; 
+            align-items: center; 
+            z-index: 1000; backdrop-filter: blur(15px); background: var(--nav-bg); border-bottom: 1px solid var(--glass-border); 
+        }
+        .logo { display: none !important; } 
+        
+        .nav-container { display: flex; align-items: center; gap: 1.5rem; }
+
+        nav ul { display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0; }
+        nav a { font-weight: 500; font-size: 0.9rem; color: var(--text-muted); text-decoration: none; text-transform: uppercase; letter-spacing: 0.5px; }
+        nav a:hover, nav a.active { color: var(--primary); }
+        
+        .nav-actions { display: flex; align-items: center; gap: 10px; border-left: 1px solid var(--glass-border); padding-left: 15px; }
+        .theme-toggle-btn, .lang-btn { background: transparent; border: none; color: var(--text-main); cursor: pointer; display: flex; align-items: center; font-family: 'Fira Code', monospace; font-size: 0.85rem; padding: 5px; transition: 0.3s; }
+        .theme-toggle-btn { font-size: 1.2rem; }
+        .lang-btn:hover, .lang-btn.active { color: var(--primary); font-weight: bold; text-shadow: 0 0 10px rgba(124, 58, 237, 0.5); }
+        .lang-separator { color: var(--glass-border); font-size: 0.8rem; }
+
+        /* MOBILE MENU TOGGLE */
+        .menu-toggle { display: none; font-size: 1.5rem; color: var(--text-main); cursor: pointer; z-index: 1002; }
+
+        /* HERO BÖLÜMÜ */
+        .hero { min-height: 110vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; padding-top: 180px; }
+        .hero h1 { 
+            font-family: 'Rubik', sans-serif; font-size: clamp(2.5rem, 8vw, 6rem);
+            font-weight: 900; line-height: 1.1; margin-bottom: 2rem; 
+            background: linear-gradient(90deg, #6d28d9, #d8b4fe, #ffffff, #d8b4fe, #6d28d9); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+            opacity: 0; letter-spacing: -2px; filter: drop-shadow(0 15px 30px rgba(109, 40, 217, 0.4)); 
+            animation: ghostFadeIn 3s cubic-bezier(0.4, 0, 0.2, 1) forwards, shimmerText 8s linear infinite; 
+            padding: 0 10px;
+        }
+        @keyframes shimmerText { to { background-position: 200% center; } }
+        @keyframes ghostFadeIn { 0% { opacity: 0; transform: scale(0.9) translateY(60px); filter: blur(25px); } 100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); } }
+        .profile-img-container { width: 210px; height: 210px; margin: 0 auto 2.5rem auto; border-radius: 50%; overflow: hidden; border: 4px solid var(--primary); box-shadow: 0 0 25px var(--primary); opacity: 0; animation: fadeInPic 1.5s ease 1s forwards; transition: transform 0.3s; background: #111; }
+        .profile-img-container:hover { transform: scale(1.05); }
+        .profile-img-container img { width: 100%; height: 100%; object-fit: cover; }
+        @keyframes fadeInPic { to { opacity: 1; } }
+        .hero p { font-size: 1.3rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 3.5rem auto; opacity: 0; animation: fadeIn 1s ease 1.5s forwards; font-weight: 400; padding: 0 1rem; }
+        .btn-wrapper { display: flex; gap: 1.5rem; justify-content: center; opacity: 0; animation: fadeIn 1s ease 2s forwards; flex-wrap: wrap; }
+        
+        .btn-liquid { 
+            padding: 1rem 2.5rem; border-radius: 50px; background: linear-gradient(90deg, #6d28d9, #d8b4fe, #ffffff, #d8b4fe, #6d28d9); border: none; color: white; font-weight: 700; cursor: pointer; 
+            box-shadow: 0 4px 15px rgba(109, 40, 217, 0.3); transition: 0.3s; text-decoration: none; display: inline-block;
+        }
+        .btn-liquid:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(109, 40, 217, 0.4); color: white; }
+        
+        #hero-auth-btn { padding: 1rem 2.5rem; border-radius: 50px; border: 2px solid var(--primary); color: var(--primary); text-decoration: none; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem; background: transparent; transition: 0.3s; }
+        #hero-auth-btn:hover { background: var(--primary); color: white; }
+
+        /* AUTH & ADMIN STYLES */
+        #admin-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 10000; display: none; flex-direction: column; justify-content: center; align-items: center; font-family: 'Fira Code', monospace; color: var(--primary); }
+        .admin-text { font-size: 1.5rem; margin-bottom: 20px; text-shadow: 0 0 10px var(--primary); }
+        .scan-line { width: 100%; height: 2px; background: var(--admin-color); position: absolute; top: 0; left: 0; box-shadow: 0 0 15px var(--admin-color); animation: scan 2s linear infinite; opacity: 0.5; }
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+
+        #user-welcome-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:10000; display:none; justify-content:center; align-items:center; }
+        .welcome-card { text-align:center; animation: fadeIn 0.5s ease; color: white; }
+
+        #weather-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; overflow: hidden; }
+        
+        .weather-widget { position: fixed; bottom: 25px; left: 25px; background: var(--nav-bg); padding: 10px 20px; border-radius: 50px; border: 1px solid var(--glass-border); font-size: 0.9rem; z-index: 100; backdrop-filter: blur(10px); display: flex; align-items: center; gap: 8px; }
+        .snowflake { position: absolute; color: white; opacity: 0.6; animation: snowfall 5s linear infinite; }
+        .raindrop { position: absolute; background: rgba(216, 180, 254, 0.4); width: 2px; height: 15px; animation: rainfall 0.8s linear infinite; }
+        .star { position: absolute; background: white; border-radius: 50%; opacity: 0.3; animation: twinkle 3s infinite ease-in-out; }
+        @keyframes rainfall { to { transform: translateY(100vh); } }
+        @keyframes snowfall { 0% { transform: translateY(-10vh) rotate(0deg); } 100% { transform: translateY(100vh) rotate(360deg); } }
+        @keyframes twinkle { 0%, 100% { opacity: 0.2; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.2); } }
+
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 1.2s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        footer { padding: 5rem 0; text-align: center; border-top: 1px solid var(--glass-border); margin-top: 8rem; color: var(--text-muted); }
+        .socials { display: flex; justify-content: center; gap: 3rem; margin-bottom: 2rem; }
+        .socials a { font-size: 2rem; color: var(--text-main); transition: 0.3s; }
+        .socials a:hover { color: var(--primary); transform: scale(1.2); }
+
+        /* MOBİL UYUMLULUK */
+        @media screen and (max-width: 900px) {
+             header { justify-content: space-between; padding: 1rem 5%; }
+             .menu-toggle { display: block; }
+             .nav-container {
+                 position: fixed; top: 0; right: -100%; height: 100vh; width: 75%;
+                 background: var(--nav-bg); flex-direction: column; justify-content: center;
+                 border-left: 1px solid var(--glass-border); transition: 0.4s ease-in-out;
+                 backdrop-filter: blur(20px); box-shadow: -10px 0 30px rgba(0,0,0,0.5); z-index: 1001;
+             }
+             .nav-container.active { right: 0; }
+             nav ul { flex-direction: column; align-items: center; gap: 2rem; }
+             nav a { font-size: 1.2rem; }
+             .nav-actions { border-left: none; padding-left: 0; margin-top: 2rem; border-top: 1px solid var(--glass-border); padding-top: 2rem; width: 80%; justify-content: center; }
+             .hero { padding-top: 120px; min-height: auto; padding-bottom: 5rem; }
+             .btn-wrapper { flex-direction: column; width: 100%; padding: 0 10%; }
+             .btn-liquid, #hero-auth-btn { width: 100%; text-align: center; }
+             .weather-widget { bottom: 20px; left: 10px; padding: 8px 15px; font-size: 0.8rem; }
+        }
+
+        /* ------------------------------------- */
+        /* --- YENİ GELİŞMİŞ CHATBOT STİLLERİ --- */
+        /* ------------------------------------- */
+        .chatbot-container * { box-sizing: border-box; }
+        
+        #chat-toggle-btn {
+            position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px;
+            background: linear-gradient(135deg, #7c3aed, #6d28d9);
+            color: white; border: none; border-radius: 50%;
+            box-shadow: 0 10px 25px rgba(124, 58, 237, 0.4);
+            cursor: pointer; z-index: 9999;
+            display: flex; align-items: center; justify-content: center;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        #chat-toggle-btn:hover { transform: scale(1.1) rotate(5deg); }
+        #chat-toggle-btn i { font-size: 28px; }
+
+        #chat-window {
+            position: fixed; bottom: 110px; right: 30px; width: 360px; max-width: 90%;
+            height: 550px; max-height: 70vh;
+            background-color: var(--nav-bg); 
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+            display: flex; flex-direction: column;
+            z-index: 9999;
+            transform-origin: bottom right;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0; transform: scale(0.9) translateY(20px); pointer-events: none;
+            overflow: hidden; backdrop-filter: blur(15px);
+        }
+
+        #chat-window.open { opacity: 1; transform: scale(1) translateY(0); pointer-events: all; }
+
+        .chat-header {
+            background: linear-gradient(90deg, #7c3aed, #4c1d95);
+            padding: 18px; color: white;
+            display: flex; align-items: center; justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .chat-messages {
+            flex: 1; padding: 20px; overflow-y: auto;
+            display: flex; flex-direction: column; gap: 12px;
+            background: rgba(0,0,0,0.2); 
+        }
+        
+        .message { max-width: 85%; padding: 12px 16px; border-radius: 12px; font-size: 14px; line-height: 1.5; animation: slideIn 0.3s ease; position: relative; }
+        .message.bot { align-self: flex-start; background: #222; color: #e5e5e5; border-bottom-left-radius: 2px; border: 1px solid rgba(255,255,255,0.1); }
+        .message.user { align-self: flex-end; background: var(--primary); color: white; border-bottom-right-radius: 2px; box-shadow: 0 4px 10px rgba(124, 58, 237, 0.3); }
+
+        .chat-input-area {
+            padding: 15px; background: rgba(0,0,0,0.3);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex; gap: 10px;
+        }
+        .chat-input-area input {
+            flex: 1; padding: 12px; border-radius: 25px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05); color: white; outline: none;
+        }
+        .chat-input-area input:focus { border-color: var(--primary); }
+
+        .chat-input-area button {
+            background: var(--primary); color: white; border: none;
+            width: 40px; height: 40px; border-radius: 50%;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            transition: 0.2s;
+        }
+        .chat-input-area button:hover { background: #6d28d9; transform: scale(1.1); }
+        
+        .typing-indicator { font-style: italic; color: var(--text-muted); font-size: 0.8rem; margin-left: 10px; display: none; }
+
+        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body style="overflow: hidden;">
+
+    <!-- INTRO OVERLAY -->
+    <div id="intro-overlay">
+        <div class="intro-content"><h1>Enes Daşdan</h1></div>
+        <div class="loader-container"><div class="loader-bar" id="main-loader-bar"></div></div>
+    </div>
+
+    <!-- ADMIN GİRİŞ ANİMASYONU -->
+    <div id="admin-overlay">
+        <div class="scan-line"></div>
+        <div id="admin-text-container"></div>
+        <div id="admin-final-text" style="font-size: 3.5rem; font-weight: bold; color: #fff; text-align: center;" data-lang="welcome_boss">HOŞGELDİN<br>PATRON</div>
+    </div>
+
+    <!-- NORMAL ÜYE GİRİŞ ANİMASYONU -->
+    <div id="user-welcome-overlay">
+        <div class="welcome-card">
+            <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--success); margin-bottom: 1.5rem;"></i>
+            <h2 id="welcome-user-name"></h2>
+        </div>
+    </div>
+
+    <!-- WEATHER WIDGET CONTAINER -->
+    <div id="weather-container"></div>
+
+    <!-- ============================================== -->
+    <!-- YENİ GELİŞMİŞ CHATBOT HTML YAPISI (Gömülü) -->
+    <!-- ============================================== -->
+    <div class="chatbot-container">
+        <div id="chat-window">
+            <div class="chat-header">
+                <div style="font-weight:700; display:flex; align-items:center; gap:10px;">
+                    <i class="fas fa-robot"></i> EnesAI Asistan
+                </div>
+                <div id="chat-close" style="cursor:pointer; opacity:0.8; font-size: 1.5rem;" onclick="toggleChat()">&times;</div>
+            </div>
+            <div id="chat-messages" class="chat-messages">
+                <div class="message bot">Merhaba! 👋 Ben Enes Daşdan'ın sanal asistanıyım. Enes hakkında, projeleri hakkında veya gündelik konularda bana soru sorabilirsin.</div>
+            </div>
+            <div id="typing-indicator" class="typing-indicator">EnesAI yazıyor...</div>
+            <div class="chat-input-area">
+                <input type="text" id="bot-input" placeholder="Bir mesaj yaz..." autocomplete="off">
+                <button id="bot-send" onclick="sendBotMessage()"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <button id="chat-toggle-btn" onclick="toggleChat()">
+            <i class="fas fa-comment-dots"></i>
+        </button>
+    </div>
+
+    <header>
+        <div class="logo">Enes D.</div> 
+        
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <nav class="nav-container" id="nav-menu">
+            <ul>
+                <li><a href="biography.html" data-lang="nav_bio">Hakkımda</a></li>
+                <li><a href="about.html" data-lang="nav_about">Uzmanlıklar</a></li>
+                <li><a href="projects.html" data-lang="nav_projects">Projeler</a></li>
+                <li><a href="contact.html" data-lang="nav_contact">Üyelik</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="lang-btn active" id="btn-tr" onclick="setLanguage('tr')">TR</button>
+                <span class="lang-separator">/</span>
+                <button class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
+                
+                <button id="theme-toggle" class="theme-toggle-btn" style="margin-left: 10px;">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container reveal active">
+            <h1>Enes Daşdan</h1>
+            <div class="profile-img-container">
+                <img src="IMG_3437.png.png" alt="Enes Daşdan" onerror="this.src='https://via.placeholder.com/220?text=Profil'">
+            </div>
+            <p data-lang="hero_desc">Dijital deneyimleri sanata, kodları akıcı hikayelere dönüştürüyorum. Modern, hızlı ve estetik çözümler üzerine odaklanmış bir geliştiriciyim.</p>
+            <div class="btn-wrapper">
+                <a href="projects.html" class="btn-liquid" style="text-decoration:none;" data-lang="btn_projects">Projeleri Keşfet</a>
+                <a href="contact.html" id="hero-auth-btn" data-lang="btn_signup">Üye Ol</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="socials">
+            <a href="https://www.instagram.com/enes.dsdn" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="mailto:enesdasdan43@gmail.com"><i class="far fa-envelope"></i></a>
+        </div>
+        <p>&copy; 2025 Enes Daşdan | Smart Portfolio</p>
+    </footer>
+
+    <script>
+        // --- ORTAK SCRIPTLER ---
+        function toggleMenu() {
+            const nav = document.getElementById('nav-menu');
+            const icon = document.querySelector('.menu-toggle i');
+            nav.classList.toggle('active');
+            if(nav.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+
+        const translations = {
+            tr: {
+                nav_bio: "Hakkımda", nav_about: "Uzmanlıklar", nav_projects: "Projeler", nav_contact: "Üyelik",
+                welcome_boss: "HOŞGELDİN<br>PATRON", 
+                hero_desc: "Dijital deneyimleri sanata, kodları akıcı hikayelere dönüştürüyorum. Modern, hızlı ve estetik çözümler üzerine odaklanmış bir geliştiriciyim.",
+                btn_projects: "Projeleri Keşfet", btn_signup: "Üye Ol", btn_panel: "Panele Git", title_bio: "Hakkımda & Eğitim",
+            },
+            en: {
+                nav_bio: "About Me", nav_about: "Expertise", nav_projects: "Projects", nav_contact: "Membership", welcome_boss: "WELCOME<br>BOSS",
+                hero_desc: "I transform digital experiences into art and code into fluid stories. I am a developer focused on modern, fast, and aesthetic solutions.",
+                btn_projects: "Explore Projects", btn_signup: "Sign Up", btn_panel: "Go to Panel", title_bio: "About Me & Education",
+            }
+        };
+
+        let currentLang = localStorage.getItem('lang') || 'tr';
+        function setLanguage(lang) {
+            currentLang = lang; localStorage.setItem('lang', lang);
+            document.getElementById('btn-tr').classList.toggle('active', lang === 'tr');
+            document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+            document.querySelectorAll('[data-lang]').forEach(el => { const key = el.getAttribute('data-lang'); if (translations[lang] && translations[lang][key]) el.innerHTML = translations[lang][key]; });
+            checkSession();
+        }
+
+        function startApp() {
+            const bar = document.getElementById('main-loader-bar'); let width = 0;
+            const interval = setInterval(() => {
+                width += 5; if(bar) bar.style.width = width + '%';
+                if (width >= 100) { clearInterval(interval); document.body.classList.add('loaded'); document.body.style.overflow = 'auto'; }
+            }, 50);
+            setLanguage(currentLang); checkSession(); fetchWeather(); updateThemeIcon();
+        }
+        document.addEventListener('DOMContentLoaded', startApp);
+
+        const themeBtn = document.getElementById('theme-toggle');
+        function updateThemeIcon() { const isLight = document.body.classList.contains('light-mode'); themeBtn.querySelector('i').className = isLight ? 'fas fa-sun' : 'fas fa-moon'; }
+        if (localStorage.getItem('theme') === 'light') document.body.classList.add('light-mode');
+        themeBtn.addEventListener('click', () => { document.body.classList.toggle('light-mode'); localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark'); updateThemeIcon(); });
+
+        // --- HAVA DURUMU SİSTEMİ (DÜZELTİLDİ VE GELİŞTİRİLDİ) ---
+        async function fetchWeather() {
+            try {
+                // Ayancık Koordinatları
+                const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=41.9442&longitude=34.5861&current_weather=true');
+                if(!res.ok) throw new Error("API Hatası");
+                
+                const data = await res.json();
+                const temp = data.current_weather.temperature;
+                const wCode = data.current_weather.weathercode; // Hava durumu kodu
+
+                // Eski widget varsa kaldır (tekrar oluşmayı engelle)
+                const oldWidget = document.querySelector('.weather-widget');
+                if(oldWidget) oldWidget.remove();
+
+                // Widget Oluştur
+                const widget = document.createElement('div'); 
+                widget.className = 'weather-widget'; 
+                widget.innerHTML = `<i class="fas fa-temperature-high"></i> Ayancık: ${temp}°C`;
+                document.body.appendChild(widget);
+
+                // Arka Plan Efektleri (Kar/Yağmur)
+                const container = document.getElementById('weather-container');
+                if (container) {
+                    container.innerHTML = ''; // Temizle
+                    // Kar (Kodlar: 71, 73, 75, 77, 85, 86)
+                    if ([71, 73, 75, 77, 85, 86].includes(wCode)) {
+                        for(let i=0; i<50; i++) {
+                            const flake = document.createElement('div');
+                            flake.className = 'snowflake';
+                            flake.style.left = Math.random() * 100 + 'vw';
+                            flake.style.animationDuration = Math.random() * 3 + 2 + 's';
+                            flake.style.opacity = Math.random();
+                            flake.innerHTML = '❄';
+                            container.appendChild(flake);
+                        }
+                    }
+                    // Yağmur (Kodlar: 51, 53, 55, 61, 63, 65, 80, 81, 82)
+                    else if ([51, 53, 55, 61, 63, 65, 80, 81, 82].includes(wCode)) {
+                        for(let i=0; i<100; i++) {
+                            const drop = document.createElement('div');
+                            drop.className = 'raindrop';
+                            drop.style.left = Math.random() * 100 + 'vw';
+                            drop.style.animationDuration = Math.random() * 0.5 + 0.5 + 's';
+                            drop.style.animationDelay = Math.random() * 2 + 's';
+                            container.appendChild(drop);
+                        }
+                    }
+                }
+            } catch (e) { console.error("Hava durumu hatası:", e); }
+        }
+
+        const ADMIN_EMAIL = 'enesdasdan43@gmail.com';
+        function checkSession() {
+            const email = localStorage.getItem('sessionUserEmail');
+            const heroBtn = document.getElementById('hero-auth-btn');
+            if (email && heroBtn) {
+                 heroBtn.innerText = translations[currentLang] ? translations[currentLang]['btn_panel'] : "Panel";
+                 heroBtn.onclick = (e) => { e.preventDefault(); location.href = 'contact.html'; return false; };
+            }
+        }
+        window.logout = () => { localStorage.removeItem('sessionUserName'); localStorage.removeItem('sessionUserEmail'); location.reload(); };
+        
+        window.addEventListener('scroll', () => { document.querySelectorAll('.reveal').forEach(r => { if(r.getBoundingClientRect().top < window.innerHeight - 50) r.classList.add('active'); }); });
+
+        // ==========================================
+        // YENİ GELİŞMİŞ CHATBOT MANTIĞI (JS)
+        // ==========================================
+        const chatWindow = document.getElementById('chat-window');
+        const botInput = document.getElementById('bot-input');
+        const messagesContainer = document.getElementById('chat-messages');
+        const typingIndicator = document.getElementById('typing-indicator');
+
+        function toggleChat() { chatWindow.classList.toggle('open'); }
+
+        function addMessage(text, type) {
+            const div = document.createElement('div');
+            div.className = `message ${type}`;
+            div.innerHTML = text; // Linkler için innerHTML
+            messagesContainer.appendChild(div);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        // AKILLI KELİME HAVUZU (Knowledge Base)
+        // SIRALAMA ÖNEMLİDİR: Üsttekiler daha yüksek önceliğe sahiptir.
+        const knowledgeBase = [
+            // 1. ÖNCELİK: Aşk Hayatı ve Özel Durumlar (Yanlış tetiklenmeleri önlemek için en üste alındı)
+            { keywords: [
+                "sevgilisi var mı", "sevgilisi varmı", "sevgilisi kim",
+                "sevgilin var mı", "sevgilin varmı", "sevgilin kim",
+                "manitası var mı", "manitası varmı", "manita var mı", "manitası kim",
+                "ilişkisi var mı", "ilişkisi varmı", "ilişki durumu",
+                "aşk hayatı", "hayatında biri", 
+                "yenge var mı", "yenge varmı", "yengemiz var mı",
+                "bekar mı", "bekarmı", 
+                "yalnız mı", "sap mı",
+                "enesin sevgilisi", "enesin manitası", "enesin ilişkisi", "enesin aşk hayatı",
+                "enesin sevgilisi var mı", "enesin sevgilisi varmı", "enesin manitası var mı",
+                // Hatalı yazımlar için eklemeler:
+                "nesin sevgilisi", "nesin manitası", "nesin ilişkisi"
+            ], answer: "Kendisi 19 yıldır yalnız..." },
+
+            // 2. Kişisel Sorular
+            { keywords: ["kimsin", "nesin", "adın ne", "sen kimsin"], answer: "Ben Enes Daşdan'ın portfolyo sitesi için tasarladığı yapay zeka asistanıyım. Kod adım EnesAI." },
+            { keywords: ["enes kim", "enes daşdan", "sahibi kim", "geliştirici"], answer: "Enes Daşdan, 2006 Çorum doğumlu bir Full-Stack Geliştirici ve Oyun Tasarımcısıdır. Şu anda Sinop Ayancık MYO'da eğitim görmektedir." },
+            { keywords: ["yaş", "kaç yaşında", "doğum tarihi"], answer: "Enes 2006 doğumlu, yani şu an yaklaşık 19 yaşında. Genç ama yetenekli!" },
+            { keywords: ["nereli", "memleket"], answer: "Enes aslen Çorum Alacalıdır." },
+            { keywords: ["okul", "eğitim", "üniversite", "lise"], answer: "Enes, Alaca Mesleki ve Teknik Anadolu Lisesi'nden mezun oldu. Şu anda Sinop Ayancık MYO'da İnternet ve Ağ Teknolojileri okuyor." },
+            
+            // 3. Yetenekler
+            { keywords: ["hangi diller", "kodlama", "yazılım", "teknoloji"], answer: "Enes; HTML, CSS, JavaScript, React, Node.js, Python, C# ve Unity konularında uzmandır." },
+            { keywords: ["oyun", "unity"], answer: "Enes Unity oyun motoru ve C# ile oyun geliştirme konusunda deneyimlidir. Mekanik ve level tasarımı yapabilir." },
+            { keywords: ["tasarım", "figma", "ui", "ux"], answer: "UI/UX tasarımı konusunda Figma ve Photoshop kullanıyor. Modern ve kullanıcı dostu arayüzler tasarlar." },
+
+            // 4. Projeler
+            { keywords: ["proje", "neler yaptın", "işler"], answer: "Seçkin projeler arasında 'Neon Dashboard', 'E-Ticaret Arayüzü' ve 'Kozmik Blog' bulunuyor. Detaylar için <a href='projects.html' style='color:#fff; text-decoration:underline;'>Projeler</a> sayfasına bakabilirsin." },
+
+            // 5. İletişim & Sosyal Medya
+            { keywords: ["iletişim", "ulaş", "nereden ulaşabilirim"], answer: "Bana <b>enesdasdan43@gmail.com</b> adresinden mail atabilir veya Instagram'dan <b>@enes.dsdn</b> kullanıcı adıyla ulaşabilirsin." },
+            { keywords: ["mail", "eposta", "e-posta", "email", "gmail"], answer: "Mail adresim: <a href='mailto:enesdasdan43@gmail.com' style='color:#fff; text-decoration:underline;'>enesdasdan43@gmail.com</a>. Proje teklifleri için her zaman açığım!" },
+            { keywords: ["instagram", "insta", "sosyal medya", "facebook", "twitter", "linkedin"], answer: "Aktif olarak Instagram kullanıyorum: <a href='https://www.instagram.com/enes.dsdn' target='_blank' style='color:#fff; text-decoration:underline;'>@enes.dsdn</a>. Takip etmeyi unutma! 😉" },
+            { keywords: ["telefon", "numara", "whatsapp"], answer: "Telefon numaramı buradan paylaşamıyorum ama mail veya Instagram üzerinden yazarsan hızlıca dönüş yaparım." },
+            { keywords: ["fiyat", "ücret", "teklif"], answer: "Fiyatlar projenin kapsamına göre değişiyor. Detaylı bilgi almak için lütfen mail atın." },
+
+            // 6. Gündelik Sohbet
+            { keywords: ["merhaba", "selam", "hi", "hey"], answer: "Selamlar! Hoş geldin, bugün sana nasıl yardım edebilirim?" },
+            { keywords: ["nasılsın", "naber", "ne haber", "enes nasıl"], answer: "Ben bir botum ama kodlarım tıkır tıkır çalışıyor, yani harikayım! Sen nasılsın?" },
+            { keywords: ["iyiyim", "süper", "harika"], answer: "Bunu duyduğuma sevindim! Keyfinin yerinde olması harika." },
+            { keywords: ["kötüyüm", "moralim bozuk"], answer: "Üzüldüm... Belki projelerime göz atmak kafanı dağıtır, ne dersin?" },
+            { keywords: ["günaydın"], answer: "Günaydın! Güne harika bir başlangıç yapmanı dilerim." },
+            { keywords: ["iyi geceler"], answer: "İyi geceler! Yarın görüşmek üzere." },
+            { keywords: ["teşekkür", "sağ ol"], answer: "Rica ederim, her zaman buradayım!" },
+            { keywords: ["saat kaç"], answer: "Şu an saatin kaç olduğunu cihazının sağ üst köşesinden görebilirsin 😉 Ama kodlarıma bakarsam, zaman kodlamak için harika bir zaman!" },
+            { keywords: ["espri", "şaka"], answer: "Yazılımcı bakkala girmiş, 'Bir ekmek al, yumurta varsa on tane al' demişler. Bakkalcı 'Yumurta var' demiş, yazılımcı 10 tane ekmek almış. 😂" }
+        ];
+
+        function findBestMatch(userInput) {
+            // Türkçe karakter uyumlu küçük harfe çevirme (ÖNEMLİ DÜZELTME)
+            const input = userInput.toLocaleLowerCase('tr-TR');
+            
+            // Kelime havuzunda ara
+            for (let item of knowledgeBase) {
+                // Eğer input, anahtar kelimelerden birini içeriyorsa
+                if (item.keywords.some(keyword => input.includes(keyword))) {
+                    return item.answer;
+                }
+            }
+            
+            return "Bunu tam anlayamadım. 🤔 Enes hakkında, projeleri veya yetenekleri hakkında sorular sorabilirsin.";
+        }
+
+        function sendBotMessage() {
+            const text = botInput.value.trim();
+            if (!text) return;
+
+            addMessage(text, 'user');
+            botInput.value = '';
+            
+            // "Yazıyor..." efekti
+            typingIndicator.style.display = 'block';
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            setTimeout(() => {
+                const reply = findBestMatch(text);
+                typingIndicator.style.display = 'none';
+                addMessage(reply, 'bot');
+            }, 800); // 0.8 saniye bekleme süresi
+        }
+
+        botInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendBotMessage();
+        });
+    </script>
+</body>
+</html>

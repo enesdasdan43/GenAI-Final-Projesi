@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeQuiz - Programlama Bilgi Yarışması</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+
+    <!-- Start Screen -->
+    <div class="game-container" id="startScreen">
+        <div class="logo-section">
+            <div class="logo-icon">
+                <i class="fas fa-code"></i>
+                <i class="fas fa-bolt logo-bolt"></i>
+            </div>
+            <h1 class="game-title">Code<span>Quiz</span></h1>
+            <p class="game-subtitle">Programlama bilgini test et!</p>
+        </div>
+
+        <div class="category-section">
+            <h3>Kategori Seç</h3>
+            <div class="category-grid">
+                <button class="category-btn selected" onclick="selectCategory(this, 'html')" data-cat="html">
+                    <i class="fab fa-html5"></i>
+                    <span>HTML</span>
+                    <small>10 Soru</small>
+                </button>
+                <button class="category-btn" onclick="selectCategory(this, 'css')" data-cat="css">
+                    <i class="fab fa-css3-alt"></i>
+                    <span>CSS</span>
+                    <small>10 Soru</small>
+                </button>
+                <button class="category-btn" onclick="selectCategory(this, 'javascript')" data-cat="javascript">
+                    <i class="fab fa-js-square"></i>
+                    <span>JavaScript</span>
+                    <small>10 Soru</small>
+                </button>
+                <button class="category-btn" onclick="selectCategory(this, 'python')" data-cat="python">
+                    <i class="fab fa-python"></i>
+                    <span>Python</span>
+                    <small>10 Soru</small>
+                </button>
+            </div>
+        </div>
+
+        <div class="difficulty-section">
+            <h3>Zorluk Seviyesi</h3>
+            <div class="difficulty-options">
+                <button class="diff-btn selected" onclick="selectDifficulty(this, 'easy')">
+                    <i class="fas fa-seedling"></i> Kolay
+                </button>
+                <button class="diff-btn" onclick="selectDifficulty(this, 'medium')">
+                    <i class="fas fa-fire"></i> Orta
+                </button>
+                <button class="diff-btn" onclick="selectDifficulty(this, 'hard')">
+                    <i class="fas fa-skull-crossbones"></i> Zor
+                </button>
+            </div>
+        </div>
+
+        <button class="start-btn" onclick="startGame()">
+            <span>Oyunu Başlat</span>
+            <i class="fas fa-play"></i>
+        </button>
+
+        <button class="leaderboard-btn" onclick="showLeaderboard()">
+            <i class="fas fa-trophy"></i> Liderlik Tablosu
+        </button>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div class="game-container hidden" id="quizScreen">
+        <div class="quiz-header">
+            <div class="quiz-info-bar">
+                <div class="quiz-score">
+                    <i class="fas fa-star"></i>
+                    <span id="scoreDisplay">0</span>
+                </div>
+                <div class="quiz-question-num">
+                    <span id="questionNum">1</span> / <span id="totalQuestions">10</span>
+                </div>
+                <div class="quiz-timer">
+                    <i class="fas fa-clock"></i>
+                    <span id="timerDisplay">30</span>
+                </div>
+            </div>
+            <div class="timer-bar">
+                <div class="timer-fill" id="timerBar"></div>
+            </div>
+            <div class="combo-display" id="comboDisplay">
+                <i class="fas fa-fire"></i> <span id="comboCount">0</span>x Kombo!
+            </div>
+        </div>
+
+        <div class="question-section">
+            <div class="question-category-tag" id="questionCategoryTag">HTML</div>
+            <h2 class="question-text" id="questionText">Soru yükleniyor...</h2>
+        </div>
+
+        <div class="answers-section" id="answersSection">
+            <button class="answer-btn" onclick="checkAnswer(0)">
+                <span class="answer-letter">A</span>
+                <span class="answer-text" id="answer0">Cevap 1</span>
+                <span class="answer-icon"></span>
+            </button>
+            <button class="answer-btn" onclick="checkAnswer(1)">
+                <span class="answer-letter">B</span>
+                <span class="answer-text" id="answer1">Cevap 2</span>
+                <span class="answer-icon"></span>
+            </button>
+            <button class="answer-btn" onclick="checkAnswer(2)">
+                <span class="answer-letter">C</span>
+                <span class="answer-text" id="answer2">Cevap 3</span>
+                <span class="answer-icon"></span>
+            </button>
+            <button class="answer-btn" onclick="checkAnswer(3)">
+                <span class="answer-letter">D</span>
+                <span class="answer-text" id="answer3">Cevap 4</span>
+                <span class="answer-icon"></span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Result Screen -->
+    <div class="game-container hidden" id="resultScreen">
+        <div class="result-icon-section" id="resultIconSection">
+            <div class="result-emoji" id="resultEmoji">🏆</div>
+            <div class="result-confetti" id="confetti"></div>
+        </div>
+        <h1 class="result-title" id="resultTitle">Tebrikler!</h1>
+        <p class="result-subtitle" id="resultSubtitle">Harika bir performans!</p>
+
+        <div class="result-stats">
+            <div class="result-stat">
+                <div class="stat-circle" id="scoreCircle">
+                    <svg viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="45" class="stat-bg"/>
+                        <circle cx="50" cy="50" r="45" class="stat-fill" id="scoreFill"/>
+                    </svg>
+                    <span class="stat-value" id="finalScore">0</span>
+                </div>
+                <span class="stat-label">Puan</span>
+            </div>
+            <div class="result-stat">
+                <div class="stat-number" id="correctCount">0</div>
+                <span class="stat-label">Doğru</span>
+            </div>
+            <div class="result-stat">
+                <div class="stat-number" id="wrongCount">0</div>
+                <span class="stat-label">Yanlış</span>
+            </div>
+            <div class="result-stat">
+                <div class="stat-number" id="maxCombo">0</div>
+                <span class="stat-label">Max Kombo</span>
+            </div>
+        </div>
+
+        <div class="result-name-section" id="nameSection">
+            <input type="text" id="playerName" placeholder="Adınızı girin..." maxlength="15">
+            <button class="save-score-btn" onclick="saveScore()">
+                <i class="fas fa-save"></i> Puanı Kaydet
+            </button>
+        </div>
+
+        <div class="result-actions">
+            <button class="play-again-btn" onclick="resetGame()">
+                <i class="fas fa-redo"></i> Tekrar Oyna
+            </button>
+            <button class="home-btn" onclick="goHome()">
+                <i class="fas fa-home"></i> Ana Sayfa
+            </button>
+        </div>
+    </div>
+
+    <!-- Leaderboard Screen -->
+    <div class="game-container hidden" id="leaderboardScreen">
+        <div class="leaderboard-header">
+            <button class="lb-back-btn" onclick="goHome()"><i class="fas fa-arrow-left"></i></button>
+            <h2><i class="fas fa-trophy"></i> Liderlik Tablosu</h2>
+        </div>
+        <div class="leaderboard-list" id="leaderboardList">
+            <div class="leaderboard-empty">
+                <i class="fas fa-ghost"></i>
+                <p>Henüz skor yok. İlk sen ol!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback overlay -->
+    <div class="feedback-overlay hidden" id="feedbackOverlay">
+        <div class="feedback-content" id="feedbackContent">
+            <i class="fas fa-check-circle"></i>
+            <span>Doğru!</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
