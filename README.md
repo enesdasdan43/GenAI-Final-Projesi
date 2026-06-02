@@ -8,7 +8,7 @@
 
 ## 🎬 Video Sunum
 
-> 📹 **YouTube Video Linki:** [YOUTUBE_VIDEO_LINKINIZI_BURAYA_EKLEYIN](https://youtube.com)
+> 📹 **YouTube Video Linki:** (https://youtu.be/yTnIiYKhwRo)
 
 ---
 
