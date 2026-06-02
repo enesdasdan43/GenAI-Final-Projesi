@@ -3,199 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodeQuiz - Programlama Bilgi Yarışması</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>DevQuiz - Yazılımcı Bilgi Yarışması</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="particles" id="particles"></div>
+    <div class="area" >
+        <ul class="circles">
+                <li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li>
+        </ul>
+    </div >
 
-    <!-- Start Screen -->
-    <div class="game-container" id="startScreen">
-        <div class="logo-section">
-            <div class="logo-icon">
-                <i class="fas fa-code"></i>
-                <i class="fas fa-bolt logo-bolt"></i>
+    <div class="game-container">
+        
+        <!-- Start Screen -->
+        <div id="startScreen" class="screen active">
+            <div class="logo-container">
+                <div class="glow-orb"></div>
+                <div class="logo-icon"><i class="fas fa-terminal"></i></div>
             </div>
-            <h1 class="game-title">Code<span>Quiz</span></h1>
-            <p class="game-subtitle">Programlama bilgini test et!</p>
-        </div>
+            <h1 class="game-title">Dev<span>Quiz</span></h1>
+            <p class="game-subtitle">Kodlama becerilerini kanıtla, liderlik tablosuna adını yazdır!</p>
 
-        <div class="category-section">
-            <h3>Kategori Seç</h3>
-            <div class="category-grid">
-                <button class="category-btn selected" onclick="selectCategory(this, 'html')" data-cat="html">
-                    <i class="fab fa-html5"></i>
-                    <span>HTML</span>
-                    <small>10 Soru</small>
-                </button>
-                <button class="category-btn" onclick="selectCategory(this, 'css')" data-cat="css">
-                    <i class="fab fa-css3-alt"></i>
-                    <span>CSS</span>
-                    <small>10 Soru</small>
-                </button>
-                <button class="category-btn" onclick="selectCategory(this, 'javascript')" data-cat="javascript">
-                    <i class="fab fa-js-square"></i>
-                    <span>JavaScript</span>
-                    <small>10 Soru</small>
-                </button>
-                <button class="category-btn" onclick="selectCategory(this, 'python')" data-cat="python">
-                    <i class="fab fa-python"></i>
-                    <span>Python</span>
-                    <small>10 Soru</small>
-                </button>
-            </div>
-        </div>
-
-        <div class="difficulty-section">
-            <h3>Zorluk Seviyesi</h3>
-            <div class="difficulty-options">
-                <button class="diff-btn selected" onclick="selectDifficulty(this, 'easy')">
-                    <i class="fas fa-seedling"></i> Kolay
-                </button>
-                <button class="diff-btn" onclick="selectDifficulty(this, 'medium')">
-                    <i class="fas fa-fire"></i> Orta
-                </button>
-                <button class="diff-btn" onclick="selectDifficulty(this, 'hard')">
-                    <i class="fas fa-skull-crossbones"></i> Zor
-                </button>
-            </div>
-        </div>
-
-        <button class="start-btn" onclick="startGame()">
-            <span>Oyunu Başlat</span>
-            <i class="fas fa-play"></i>
-        </button>
-
-        <button class="leaderboard-btn" onclick="showLeaderboard()">
-            <i class="fas fa-trophy"></i> Liderlik Tablosu
-        </button>
-    </div>
-
-    <!-- Quiz Screen -->
-    <div class="game-container hidden" id="quizScreen">
-        <div class="quiz-header">
-            <div class="quiz-info-bar">
-                <div class="quiz-score">
-                    <i class="fas fa-star"></i>
-                    <span id="scoreDisplay">0</span>
+            <div class="selection-container">
+                <h3 class="selection-title">Kategori Seçimi</h3>
+                <div class="category-grid">
+                    <button class="category-btn active" data-cat="html">
+                        <i class="fab fa-html5"></i> HTML
+                    </button>
+                    <button class="category-btn" data-cat="css">
+                        <i class="fab fa-css3-alt"></i> CSS
+                    </button>
+                    <button class="category-btn" data-cat="js">
+                        <i class="fab fa-js"></i> JavaScript
+                    </button>
+                    <button class="category-btn" data-cat="python">
+                        <i class="fab fa-python"></i> Python
+                    </button>
                 </div>
-                <div class="quiz-question-num">
-                    <span id="questionNum">1</span> / <span id="totalQuestions">10</span>
+
+                <h3 class="selection-title mt-4">Zorluk Seviyesi</h3>
+                <div class="difficulty-grid">
+                    <button class="diff-btn active" data-diff="easy">Kolay (30s)</button>
+                    <button class="diff-btn" data-diff="medium">Orta (20s)</button>
+                    <button class="diff-btn" data-diff="hard">Zor (10s)</button>
                 </div>
-                <div class="quiz-timer">
+            </div>
+
+            <button id="startBtn" class="primary-btn">
+                <span>Oyuna Başla</span>
+                <i class="fas fa-rocket"></i>
+            </button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quizScreen" class="screen">
+            <div class="quiz-header">
+                <div class="stat-box">
+                    <i class="fas fa-star" style="color: #ffd700;"></i>
+                    <span id="score">0</span>
+                </div>
+                <div class="stat-box">
+                    Soru <span id="questionCount">1</span>/10
+                </div>
+                <div class="stat-box timer-box">
                     <i class="fas fa-clock"></i>
-                    <span id="timerDisplay">30</span>
+                    <span id="timer">30</span>
                 </div>
             </div>
-            <div class="timer-bar">
-                <div class="timer-fill" id="timerBar"></div>
+
+            <div class="progress-container">
+                <div class="progress-bar" id="timeBar"></div>
             </div>
-            <div class="combo-display" id="comboDisplay">
-                <i class="fas fa-fire"></i> <span id="comboCount">0</span>x Kombo!
+
+            <div id="comboContainer" class="combo-container hidden">
+                <i class="fas fa-fire"></i> <span id="comboText">2x Kombo!</span>
+            </div>
+
+            <div class="question-card">
+                <div class="category-badge" id="qCategory">JavaScript</div>
+                <h2 id="questionText">Soru metni buraya gelecek...</h2>
+            </div>
+
+            <div class="options-grid" id="optionsGrid">
+                <!-- Options injected via JS -->
             </div>
         </div>
 
-        <div class="question-section">
-            <div class="question-category-tag" id="questionCategoryTag">HTML</div>
-            <h2 class="question-text" id="questionText">Soru yükleniyor...</h2>
-        </div>
+        <!-- Result Screen -->
+        <div id="resultScreen" class="screen">
+            <div class="result-header">
+                <div class="result-icon" id="resultIcon">🏆</div>
+                <h1 id="resultTitle">Tebrikler!</h1>
+                <p id="resultSubtitle">Harika bir iş çıkardın.</p>
+            </div>
 
-        <div class="answers-section" id="answersSection">
-            <button class="answer-btn" onclick="checkAnswer(0)">
-                <span class="answer-letter">A</span>
-                <span class="answer-text" id="answer0">Cevap 1</span>
-                <span class="answer-icon"></span>
-            </button>
-            <button class="answer-btn" onclick="checkAnswer(1)">
-                <span class="answer-letter">B</span>
-                <span class="answer-text" id="answer1">Cevap 2</span>
-                <span class="answer-icon"></span>
-            </button>
-            <button class="answer-btn" onclick="checkAnswer(2)">
-                <span class="answer-letter">C</span>
-                <span class="answer-text" id="answer2">Cevap 3</span>
-                <span class="answer-icon"></span>
-            </button>
-            <button class="answer-btn" onclick="checkAnswer(3)">
-                <span class="answer-letter">D</span>
-                <span class="answer-text" id="answer3">Cevap 4</span>
-                <span class="answer-icon"></span>
-            </button>
-        </div>
-    </div>
-
-    <!-- Result Screen -->
-    <div class="game-container hidden" id="resultScreen">
-        <div class="result-icon-section" id="resultIconSection">
-            <div class="result-emoji" id="resultEmoji">🏆</div>
-            <div class="result-confetti" id="confetti"></div>
-        </div>
-        <h1 class="result-title" id="resultTitle">Tebrikler!</h1>
-        <p class="result-subtitle" id="resultSubtitle">Harika bir performans!</p>
-
-        <div class="result-stats">
-            <div class="result-stat">
-                <div class="stat-circle" id="scoreCircle">
-                    <svg viewBox="0 0 100 100">
-                        <circle cx="50" cy="50" r="45" class="stat-bg"/>
-                        <circle cx="50" cy="50" r="45" class="stat-fill" id="scoreFill"/>
-                    </svg>
-                    <span class="stat-value" id="finalScore">0</span>
+            <div class="score-circle-container">
+                <svg class="progress-ring" width="150" height="150">
+                    <circle class="progress-ring__circle-bg" stroke="rgba(255,255,255,0.1)" stroke-width="8" fill="transparent" r="65" cx="75" cy="75"/>
+                    <circle class="progress-ring__circle" id="scoreCircle" stroke="url(#gradient)" stroke-width="8" fill="transparent" r="65" cx="75" cy="75"/>
+                    <defs>
+                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#4facfe" />
+                            <stop offset="100%" stop-color="#00f2fe" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <div class="score-text-inner">
+                    <span id="finalScore">0</span>
+                    <small>Puan</small>
                 </div>
-                <span class="stat-label">Puan</span>
             </div>
-            <div class="result-stat">
-                <div class="stat-number" id="correctCount">0</div>
-                <span class="stat-label">Doğru</span>
+
+            <div class="stats-grid">
+                <div class="stat-item correct">
+                    <i class="fas fa-check-circle"></i>
+                    <div class="stat-details">
+                        <span id="correctCount">0</span>
+                        <small>Doğru</small>
+                    </div>
+                </div>
+                <div class="stat-item wrong">
+                    <i class="fas fa-times-circle"></i>
+                    <div class="stat-details">
+                        <span id="wrongCount">0</span>
+                        <small>Yanlış</small>
+                    </div>
+                </div>
             </div>
-            <div class="result-stat">
-                <div class="stat-number" id="wrongCount">0</div>
-                <span class="stat-label">Yanlış</span>
-            </div>
-            <div class="result-stat">
-                <div class="stat-number" id="maxCombo">0</div>
-                <span class="stat-label">Max Kombo</span>
+
+            <div class="action-buttons">
+                <button id="restartBtn" class="secondary-btn">
+                    <i class="fas fa-redo"></i> Tekrar Oyna
+                </button>
             </div>
         </div>
 
-        <div class="result-name-section" id="nameSection">
-            <input type="text" id="playerName" placeholder="Adınızı girin..." maxlength="15">
-            <button class="save-score-btn" onclick="saveScore()">
-                <i class="fas fa-save"></i> Puanı Kaydet
-            </button>
-        </div>
-
-        <div class="result-actions">
-            <button class="play-again-btn" onclick="resetGame()">
-                <i class="fas fa-redo"></i> Tekrar Oyna
-            </button>
-            <button class="home-btn" onclick="goHome()">
-                <i class="fas fa-home"></i> Ana Sayfa
-            </button>
-        </div>
     </div>
 
-    <!-- Leaderboard Screen -->
-    <div class="game-container hidden" id="leaderboardScreen">
-        <div class="leaderboard-header">
-            <button class="lb-back-btn" onclick="goHome()"><i class="fas fa-arrow-left"></i></button>
-            <h2><i class="fas fa-trophy"></i> Liderlik Tablosu</h2>
-        </div>
-        <div class="leaderboard-list" id="leaderboardList">
-            <div class="leaderboard-empty">
-                <i class="fas fa-ghost"></i>
-                <p>Henüz skor yok. İlk sen ol!</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Feedback overlay -->
-    <div class="feedback-overlay hidden" id="feedbackOverlay">
-        <div class="feedback-content" id="feedbackContent">
-            <i class="fas fa-check-circle"></i>
-            <span>Doğru!</span>
+    <!-- Feedback Overlay -->
+    <div id="feedbackOverlay" class="feedback-overlay hidden">
+        <div class="feedback-content">
+            <i id="feedbackIcon" class="fas fa-check-circle"></i>
+            <h2 id="feedbackTitle">Doğru!</h2>
+            <p id="feedbackPoints">+100 Puan</p>
         </div>
     </div>
 
