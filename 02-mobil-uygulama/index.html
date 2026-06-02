@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduLearn Mobile - E-Öğrenme Uygulaması</title>
+    <title>EduLearn Mobile</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -13,29 +13,93 @@
         <div class="phone-notch"></div>
 
         <!-- Status Bar -->
-        <div class="status-bar">
-            <span class="time" id="statusTime">19:22</span>
+        <div class="status-bar" id="statusBar">
+            <span class="time" id="statusTime">00:00</span>
             <div class="status-icons">
                 <i class="fas fa-signal"></i>
                 <i class="fas fa-wifi"></i>
-                <i class="fas fa-battery-three-quarters"></i>
+                <i class="fas fa-battery-full"></i>
             </div>
         </div>
 
-        <!-- Screens Container -->
+        <!-- Toast Notification Container -->
+        <div id="toastContainer" class="toast-container"></div>
+
         <div class="screens-container">
             
+            <!-- Auth Screen (Login) -->
+            <div class="screen active" id="authScreen">
+                <div class="auth-header">
+                    <div class="auth-logo">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h2>EduLearn'e Hoş Geldin</h2>
+                    <p>Öğrenme yolculuğuna devam et</p>
+                </div>
+                
+                <form id="loginForm" class="auth-form" onsubmit="handleLogin(event)">
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="loginEmail" placeholder="E-posta adresi" required value="enesdasdan43@gmail.com">
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="loginPassword" placeholder="Şifre" required value="123456">
+                    </div>
+                    <div class="auth-options">
+                        <label class="remember-me">
+                            <input type="checkbox" checked> Beni Hatırla
+                        </label>
+                        <a href="#" onclick="showToast('Şifre sıfırlama bağlantısı e-postanıza gönderildi.', 'info')">Şifremi Unuttum</a>
+                    </div>
+                    <button type="submit" class="auth-btn" id="loginBtn">
+                        <span>Giriş Yap</span>
+                    </button>
+                    <div class="auth-switch">
+                        Hesabın yok mu? <a href="#" onclick="switchAuthScreen('register')">Kayıt Ol</a>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Auth Screen (Register) -->
+            <div class="screen" id="registerScreen">
+                <div class="auth-header">
+                    <button class="back-btn-auth" onclick="switchAuthScreen('login')"><i class="fas fa-arrow-left"></i></button>
+                    <h2>Yeni Hesap Oluştur</h2>
+                    <p>Hemen öğrenmeye başla</p>
+                </div>
+                
+                <form id="registerForm" class="auth-form" onsubmit="handleRegister(event)">
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="regName" placeholder="Ad Soyad" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="regEmail" placeholder="E-posta adresi" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="regPassword" placeholder="Şifre" required minlength="6">
+                    </div>
+                    <button type="submit" class="auth-btn">Kayıt Ol</button>
+                    <div class="auth-switch">
+                        Zaten hesabın var mı? <a href="#" onclick="switchAuthScreen('login')">Giriş Yap</a>
+                    </div>
+                </form>
+            </div>
+
             <!-- Home Screen -->
-            <div class="screen active" id="homeScreen">
+            <div class="screen" id="homeScreen">
                 <div class="screen-header">
                     <div class="greeting">
-                        <span class="greeting-text">Merhaba, Enes 👋</span>
-                        <h2>Bugün ne öğrenmek istersin?</h2>
+                        <span class="greeting-text">Günaydın,</span>
+                        <h2 id="userNameDisplay">Enes 👋</h2>
                     </div>
-                    <div class="avatar-small">ED</div>
+                    <div class="avatar-small" onclick="switchNav('profileScreen')" style="cursor:pointer">ED</div>
                 </div>
 
-                <div class="search-bar" onclick="showScreen('searchScreen')">
+                <div class="search-bar" onclick="switchNav('searchScreen')">
                     <i class="fas fa-search"></i>
                     <span>Kurs veya konu ara...</span>
                 </div>
@@ -43,24 +107,24 @@
                 <div class="section">
                     <div class="section-header">
                         <h3>Kategoriler</h3>
-                        <a href="#" class="see-all">Tümü</a>
+                        <a href="#" class="see-all" onclick="showToast('Tüm kategoriler listeleniyor...', 'info')">Tümü</a>
                     </div>
                     <div class="categories-scroll">
-                        <div class="category-chip active"><i class="fas fa-code"></i> Yazılım</div>
-                        <div class="category-chip"><i class="fas fa-palette"></i> Tasarım</div>
-                        <div class="category-chip"><i class="fas fa-network-wired"></i> Ağ</div>
-                        <div class="category-chip"><i class="fas fa-robot"></i> AI</div>
-                        <div class="category-chip"><i class="fas fa-database"></i> Veri</div>
+                        <div class="category-chip active" onclick="selectCategory(this)"><i class="fas fa-code"></i> Yazılım</div>
+                        <div class="category-chip" onclick="selectCategory(this)"><i class="fas fa-palette"></i> Tasarım</div>
+                        <div class="category-chip" onclick="selectCategory(this)"><i class="fas fa-network-wired"></i> Ağ</div>
+                        <div class="category-chip" onclick="selectCategory(this)"><i class="fas fa-robot"></i> AI</div>
+                        <div class="category-chip" onclick="selectCategory(this)"><i class="fas fa-database"></i> Veri</div>
                     </div>
                 </div>
 
                 <div class="section">
                     <div class="section-header">
                         <h3>Devam Eden Kurslar</h3>
-                        <a href="#" class="see-all">Tümü</a>
+                        <a href="#" class="see-all" onclick="showToast('Tüm devam eden kurslarınız', 'info')">Tümü</a>
                     </div>
-                    <div class="course-card-progress" onclick="showScreen('courseDetailScreen')">
-                        <div class="course-card-img" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <div class="course-card-progress" onclick="openCourseDetail('Python ile Yapay Zeka')">
+                        <div class="course-card-img" style="background: var(--gradient-1);">
                             <span class="course-badge">%65</span>
                             <i class="fas fa-play-circle course-play"></i>
                         </div>
@@ -68,13 +132,13 @@
                             <span class="course-category-tag">Yazılım</span>
                             <h4>Python ile Yapay Zeka</h4>
                             <div class="progress-bar">
-                                <div class="progress-fill" style="width: 65%"></div>
+                                <div class="progress-fill" style="width: 65%; background: var(--gradient-1)"></div>
                             </div>
                             <span class="course-meta">12/18 ders tamamlandı</span>
                         </div>
                     </div>
-                    <div class="course-card-progress">
-                        <div class="course-card-img" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <div class="course-card-progress" onclick="openCourseDetail('UI/UX Tasarım Temelleri')">
+                        <div class="course-card-img" style="background: var(--gradient-3);">
                             <span class="course-badge">%30</span>
                             <i class="fas fa-play-circle course-play"></i>
                         </div>
@@ -82,7 +146,7 @@
                             <span class="course-category-tag">Tasarım</span>
                             <h4>UI/UX Tasarım Temelleri</h4>
                             <div class="progress-bar">
-                                <div class="progress-fill" style="width: 30%"></div>
+                                <div class="progress-fill" style="width: 30%; background: var(--gradient-3)"></div>
                             </div>
                             <span class="course-meta">6/20 ders tamamlandı</span>
                         </div>
@@ -92,27 +156,27 @@
                 <div class="section">
                     <div class="section-header">
                         <h3>Popüler Kurslar</h3>
-                        <a href="#" class="see-all">Tümü</a>
+                        <a href="#" class="see-all" onclick="showToast('En çok tercih edilen kurslar', 'info')">Tümü</a>
                     </div>
                     <div class="popular-courses-scroll">
-                        <div class="popular-card" onclick="showScreen('courseDetailScreen')">
-                            <div class="popular-card-img" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <div class="popular-card" onclick="openCourseDetail('Web Geliştirme')">
+                            <div class="popular-card-img" style="background: var(--gradient-4);">
                                 <i class="fas fa-laptop-code"></i>
                             </div>
                             <h4>Web Geliştirme</h4>
                             <div class="rating"><i class="fas fa-star"></i> 4.8 <span>(2.1k)</span></div>
                             <span class="price">Ücretsiz</span>
                         </div>
-                        <div class="popular-card">
-                            <div class="popular-card-img" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                        <div class="popular-card" onclick="openCourseDetail('Siber Güvenlik')">
+                            <div class="popular-card-img" style="background: linear-gradient(135deg, #43e97b, #38f9d7);">
                                 <i class="fas fa-shield-alt"></i>
                             </div>
                             <h4>Siber Güvenlik</h4>
                             <div class="rating"><i class="fas fa-star"></i> 4.6 <span>(1.5k)</span></div>
                             <span class="price">Ücretsiz</span>
                         </div>
-                        <div class="popular-card">
-                            <div class="popular-card-img" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                        <div class="popular-card" onclick="openCourseDetail('Mobil Uygulama')">
+                            <div class="popular-card-img" style="background: var(--gradient-3);">
                                 <i class="fas fa-mobile-alt"></i>
                             </div>
                             <h4>Mobil Uygulama</h4>
@@ -121,101 +185,57 @@
                         </div>
                     </div>
                 </div>
-                <div style="height: 80px;"></div>
             </div>
 
             <!-- Search Screen -->
             <div class="screen" id="searchScreen">
                 <div class="search-screen-header">
-                    <button class="back-btn" onclick="showScreen('homeScreen')"><i class="fas fa-arrow-left"></i></button>
+                    <button class="icon-btn" onclick="switchNav('homeScreen')"><i class="fas fa-arrow-left"></i></button>
                     <div class="search-input-active">
                         <i class="fas fa-search"></i>
                         <input type="text" placeholder="Kurs veya konu ara..." id="searchInput" oninput="filterCourses()">
                     </div>
                 </div>
+                
                 <div class="section" style="padding-top: 10px;">
-                    <h3 class="trending-title"><i class="fas fa-fire"></i> Trend Konular</h3>
+                    <h3 class="trending-title"><i class="fas fa-fire" style="color: #ff4b6b;"></i> Trend Konular</h3>
                     <div class="trending-tags">
-                        <span class="trend-tag">#YapayZeka</span>
-                        <span class="trend-tag">#Python</span>
-                        <span class="trend-tag">#WebGeliştirme</span>
-                        <span class="trend-tag">#SiberGüvenlik</span>
-                        <span class="trend-tag">#Figma</span>
-                        <span class="trend-tag">#React</span>
+                        <span class="trend-tag" onclick="setSearchQuery('Yapay Zeka')">#YapayZeka</span>
+                        <span class="trend-tag" onclick="setSearchQuery('Python')">#Python</span>
+                        <span class="trend-tag" onclick="setSearchQuery('Web')">#WebGeliştirme</span>
+                        <span class="trend-tag" onclick="setSearchQuery('Siber Güvenlik')">#SiberGüvenlik</span>
+                        <span class="trend-tag" onclick="setSearchQuery('Figma')">#Figma</span>
+                        <span class="trend-tag" onclick="setSearchQuery('React')">#React</span>
                     </div>
                 </div>
+
                 <div class="section">
                     <h3>Tüm Kurslar</h3>
                     <div class="search-results" id="searchResults">
-                        <div class="search-result-item" data-name="python yapay zeka">
-                            <div class="result-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);"><i class="fas fa-brain"></i></div>
-                            <div class="result-info">
-                                <h4>Python ile Yapay Zeka</h4>
-                                <p>18 ders • Başlangıç-Orta</p>
-                            </div>
-                            <i class="fas fa-chevron-right result-arrow"></i>
-                        </div>
-                        <div class="search-result-item" data-name="web geliştirme html css">
-                            <div class="result-icon" style="background: linear-gradient(135deg, #4facfe, #00f2fe);"><i class="fas fa-laptop-code"></i></div>
-                            <div class="result-info">
-                                <h4>Web Geliştirme (HTML/CSS/JS)</h4>
-                                <p>24 ders • Başlangıç</p>
-                            </div>
-                            <i class="fas fa-chevron-right result-arrow"></i>
-                        </div>
-                        <div class="search-result-item" data-name="siber güvenlik ağ">
-                            <div class="result-icon" style="background: linear-gradient(135deg, #43e97b, #38f9d7);"><i class="fas fa-shield-alt"></i></div>
-                            <div class="result-info">
-                                <h4>Siber Güvenlik Temelleri</h4>
-                                <p>15 ders • Orta</p>
-                            </div>
-                            <i class="fas fa-chevron-right result-arrow"></i>
-                        </div>
-                        <div class="search-result-item" data-name="ui ux tasarım figma">
-                            <div class="result-icon" style="background: linear-gradient(135deg, #f093fb, #f5576c);"><i class="fas fa-palette"></i></div>
-                            <div class="result-info">
-                                <h4>UI/UX Tasarım Temelleri</h4>
-                                <p>20 ders • Başlangıç</p>
-                            </div>
-                            <i class="fas fa-chevron-right result-arrow"></i>
-                        </div>
-                        <div class="search-result-item" data-name="mobil uygulama geliştirme android">
-                            <div class="result-icon" style="background: linear-gradient(135deg, #fa709a, #fee140);"><i class="fas fa-mobile-alt"></i></div>
-                            <div class="result-info">
-                                <h4>Mobil Uygulama Geliştirme</h4>
-                                <p>22 ders • Orta</p>
-                            </div>
-                            <i class="fas fa-chevron-right result-arrow"></i>
-                        </div>
-                        <div class="search-result-item" data-name="veritabanı sql database">
-                            <div class="result-icon" style="background: linear-gradient(135deg, #a18cd1, #fbc2eb);"><i class="fas fa-database"></i></div>
-                            <div class="result-info">
-                                <h4>Veritabanı Yönetimi (SQL)</h4>
-                                <p>16 ders • Başlangıç-Orta</p>
-                            </div>
-                            <i class="fas fa-chevron-right result-arrow"></i>
-                        </div>
+                        <!-- Filled by JS -->
                     </div>
                 </div>
-                <div style="height: 80px;"></div>
             </div>
 
             <!-- Course Detail Screen -->
-            <div class="screen" id="courseDetailScreen">
-                <div class="course-detail-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                    <button class="back-btn light" onclick="showScreen('homeScreen')"><i class="fas fa-arrow-left"></i></button>
-                    <button class="back-btn light bookmark-btn"><i class="far fa-bookmark"></i></button>
+            <div class="screen" id="courseDetailScreen" style="padding: 0;">
+                <div class="course-detail-header" id="detailHeaderBg" style="background: var(--gradient-1);">
+                    <div class="top-actions">
+                        <button class="icon-btn light" onclick="switchNav('homeScreen')"><i class="fas fa-arrow-left"></i></button>
+                        <button class="icon-btn light" id="bookmarkBtn" onclick="toggleBookmark(this)"><i class="far fa-bookmark"></i></button>
+                    </div>
                     <div class="course-detail-info">
                         <span class="detail-badge">En Çok Satan</span>
-                        <h2>Python ile Yapay Zeka</h2>
-                        <p>Makine öğrenmesi ve derin öğrenme ile AI projeler geliştirin</p>
+                        <h2 id="detailTitle">Python ile Yapay Zeka</h2>
+                        <p id="detailDesc">Makine öğrenmesi ve derin öğrenme ile AI projeler geliştirin</p>
                         <div class="detail-meta">
-                            <span><i class="fas fa-star"></i> 4.8</span>
+                            <span><i class="fas fa-star" style="color: #ffd700;"></i> 4.8</span>
                             <span><i class="fas fa-users"></i> 2.1k öğrenci</span>
                             <span><i class="fas fa-clock"></i> 12 saat</span>
                         </div>
                     </div>
                 </div>
+                
                 <div class="course-detail-body">
                     <div class="detail-tabs">
                         <button class="detail-tab active" onclick="switchDetailTab(this, 'about')">Hakkında</button>
@@ -225,70 +245,54 @@
 
                     <div class="detail-content active" id="aboutContent">
                         <h3>Kurs Açıklaması</h3>
-                        <p>Bu kurs, Python programlama dili kullanarak yapay zeka alanında sağlam bir temel oluşturmanızı sağlar. Makine öğrenmesi, derin öğrenme ve doğal dil işleme konularını kapsar.</p>
+                        <p>Bu kurs, programlama alanında sağlam bir temel oluşturmanızı sağlar. En güncel teknolojileri uygulamalı projeler ile öğreneceksiniz.</p>
                         <h3>Ne Öğreneceksiniz?</h3>
                         <ul class="learn-list">
-                            <li><i class="fas fa-check-circle"></i> Python ile veri analizi</li>
-                            <li><i class="fas fa-check-circle"></i> Makine öğrenmesi algoritmaları</li>
-                            <li><i class="fas fa-check-circle"></i> Derin öğrenme (TensorFlow/PyTorch)</li>
-                            <li><i class="fas fa-check-circle"></i> Doğal dil işleme (NLP)</li>
-                            <li><i class="fas fa-check-circle"></i> Bilgisayarla görü projeleri</li>
+                            <li><i class="fas fa-check-circle"></i> Temel konseptler ve mimari</li>
+                            <li><i class="fas fa-check-circle"></i> Gerçek dünya projeleri geliştirme</li>
+                            <li><i class="fas fa-check-circle"></i> En iyi pratikler ve performans</li>
+                            <li><i class="fas fa-check-circle"></i> Hata ayıklama yöntemleri</li>
                         </ul>
-                        <div class="instructor">
+                        <div class="instructor" onclick="showToast('Eğitmen profili yakında eklenecek', 'info')">
                             <div class="instructor-avatar">AY</div>
                             <div class="instructor-info">
                                 <h4>Dr. Ahmet Yılmaz</h4>
-                                <p>AI Araştırmacı • 10+ yıl deneyim</p>
+                                <p>Kıdemli Eğitmen • 10+ yıl deneyim</p>
                             </div>
+                            <i class="fas fa-chevron-right" style="color: #ccc;"></i>
                         </div>
                     </div>
 
                     <div class="detail-content" id="lessonsContent">
-                        <div class="lesson-item completed">
+                        <div class="lesson-item completed" onclick="playLesson('Giriş')">
                             <div class="lesson-num">01</div>
                             <div class="lesson-info">
-                                <h4>Python Temelleri</h4>
+                                <h4>Giriş ve Kurulumlar</h4>
+                                <span>15 dk</span>
+                            </div>
+                            <i class="fas fa-check-circle lesson-status"></i>
+                        </div>
+                        <div class="lesson-item completed" onclick="playLesson('Temeller')">
+                            <div class="lesson-num">02</div>
+                            <div class="lesson-info">
+                                <h4>Temel Kavramlar</h4>
                                 <span>45 dk</span>
                             </div>
                             <i class="fas fa-check-circle lesson-status"></i>
                         </div>
-                        <div class="lesson-item completed">
-                            <div class="lesson-num">02</div>
-                            <div class="lesson-info">
-                                <h4>Numpy & Pandas</h4>
-                                <span>60 dk</span>
-                            </div>
-                            <i class="fas fa-check-circle lesson-status"></i>
-                        </div>
-                        <div class="lesson-item completed">
+                        <div class="lesson-item active-lesson" onclick="playLesson('İleri Seviye')">
                             <div class="lesson-num">03</div>
                             <div class="lesson-info">
-                                <h4>Veri Görselleştirme</h4>
-                                <span>50 dk</span>
-                            </div>
-                            <i class="fas fa-check-circle lesson-status"></i>
-                        </div>
-                        <div class="lesson-item active-lesson">
-                            <div class="lesson-num">04</div>
-                            <div class="lesson-info">
-                                <h4>Makine Öğrenmesi Giriş</h4>
-                                <span>55 dk</span>
+                                <h4>Proje Geliştirme</h4>
+                                <span>60 dk</span>
                             </div>
                             <i class="fas fa-play-circle lesson-status"></i>
                         </div>
-                        <div class="lesson-item locked">
-                            <div class="lesson-num">05</div>
+                        <div class="lesson-item locked" onclick="showToast('Önceki dersleri tamamlamalısınız', 'error')">
+                            <div class="lesson-num">04</div>
                             <div class="lesson-info">
-                                <h4>Derin Öğrenme Temelleri</h4>
-                                <span>70 dk</span>
-                            </div>
-                            <i class="fas fa-lock lesson-status"></i>
-                        </div>
-                        <div class="lesson-item locked">
-                            <div class="lesson-num">06</div>
-                            <div class="lesson-info">
-                                <h4>CNN ile Görüntü İşleme</h4>
-                                <span>65 dk</span>
+                                <h4>İleri Seviye Teknikler</h4>
+                                <span>55 dk</span>
                             </div>
                             <i class="fas fa-lock lesson-status"></i>
                         </div>
@@ -297,7 +301,7 @@
                     <div class="detail-content" id="reviewsContent">
                         <div class="review-item">
                             <div class="review-header">
-                                <div class="review-avatar">MK</div>
+                                <div class="review-avatar" style="background: var(--gradient-2)">MK</div>
                                 <div>
                                     <h4>Mehmet K.</h4>
                                     <div class="review-stars">
@@ -305,11 +309,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <p>Harika bir kurs! Sıfırdan yapay zeka öğrenmek isteyenler için biçilmiş kaftan.</p>
+                            <p>Harika bir kurs! Anlatım çok akıcı ve projeler gerçekten öğretici.</p>
                         </div>
                         <div class="review-item">
                             <div class="review-header">
-                                <div class="review-avatar">SA</div>
+                                <div class="review-avatar" style="background: var(--gradient-3)">SA</div>
                                 <div>
                                     <h4>Selin A.</h4>
                                     <div class="review-stars">
@@ -317,138 +321,136 @@
                                     </div>
                                 </div>
                             </div>
-                            <p>Anlatım çok akıcı, projeler gerçekçi. Sadece biraz daha pratik olabilirdi.</p>
+                            <p>Faydalı bir içerik, kesinlikle tavsiye ederim.</p>
                         </div>
+                        <button class="action-btn-outline" onclick="showToast('Yorum yazma ekranı açılıyor...', 'info')" style="width: 100%; margin-top: 10px;">Yorum Yaz</button>
                     </div>
                 </div>
-                <div class="enroll-bar">
+                
+                <div class="enroll-bar" id="enrollBar">
                     <div class="enroll-price">
                         <span class="price-label">Ücretsiz</span>
                     </div>
-                    <button class="enroll-btn">Kursa Başla <i class="fas fa-arrow-right"></i></button>
+                    <button class="enroll-btn" id="enrollBtn" onclick="enrollCourse()">
+                        <span>Kursa Başla</span> <i class="fas fa-arrow-right"></i>
+                    </button>
                 </div>
-            </div>
-
-            <!-- Profile Screen -->
-            <div class="screen" id="profileScreen">
-                <div class="profile-header-bg">
-                    <h2 class="profile-title">Profilim</h2>
-                </div>
-                <div class="profile-card">
-                    <div class="profile-avatar">ED</div>
-                    <h3>Enes Daşdan</h3>
-                    <p>İnternet ve Ağ Teknolojileri</p>
-                    <div class="profile-stats">
-                        <div class="stat">
-                            <strong>4</strong>
-                            <span>Kurs</span>
-                        </div>
-                        <div class="stat">
-                            <strong>12</strong>
-                            <span>Sertifika</span>
-                        </div>
-                        <div class="stat">
-                            <strong>86</strong>
-                            <span>Saat</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="profile-menu">
-                    <div class="profile-menu-item">
-                        <div class="menu-icon" style="background: #667eea22; color: #667eea;"><i class="fas fa-user"></i></div>
-                        <span>Hesap Bilgileri</span>
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
-                    <div class="profile-menu-item">
-                        <div class="menu-icon" style="background: #f5576c22; color: #f5576c;"><i class="fas fa-heart"></i></div>
-                        <span>Favorilerim</span>
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
-                    <div class="profile-menu-item">
-                        <div class="menu-icon" style="background: #43e97b22; color: #43e97b;"><i class="fas fa-certificate"></i></div>
-                        <span>Sertifikalarım</span>
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
-                    <div class="profile-menu-item">
-                        <div class="menu-icon" style="background: #4facfe22; color: #4facfe;"><i class="fas fa-bell"></i></div>
-                        <span>Bildirimler</span>
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
-                    <div class="profile-menu-item">
-                        <div class="menu-icon" style="background: #a18cd122; color: #a18cd1;"><i class="fas fa-cog"></i></div>
-                        <span>Ayarlar</span>
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
-                    <div class="profile-menu-item logout">
-                        <div class="menu-icon" style="background: #ff634722; color: #ff6347;"><i class="fas fa-sign-out-alt"></i></div>
-                        <span>Çıkış Yap</span>
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
-                </div>
-                <div style="height: 80px;"></div>
             </div>
 
             <!-- Notifications Screen -->
             <div class="screen" id="notificationsScreen">
                 <div class="screen-header-simple">
                     <h2>Bildirimler</h2>
-                    <button class="mark-read">Tümünü Okundu İşaretle</button>
+                    <button class="text-btn" onclick="clearNotifications()">Temizle</button>
                 </div>
-                <div class="notification-list">
-                    <div class="notification-item unread">
-                        <div class="notif-icon" style="background: #667eea;"><i class="fas fa-graduation-cap"></i></div>
+                <div class="notification-list" id="notifList">
+                    <div class="notification-item unread" onclick="readNotification(this)">
+                        <div class="notif-icon" style="background: var(--gradient-1);"><i class="fas fa-graduation-cap"></i></div>
                         <div class="notif-info">
                             <h4>Yeni kurs eklendi!</h4>
                             <p>"React Native ile Mobil Uygulama" kursu yayında.</p>
                             <span class="notif-time">2 saat önce</span>
                         </div>
                     </div>
-                    <div class="notification-item unread">
-                        <div class="notif-icon" style="background: #43e97b;"><i class="fas fa-trophy"></i></div>
+                    <div class="notification-item unread" onclick="readNotification(this)">
+                        <div class="notif-icon" style="background: linear-gradient(135deg, #43e97b, #38f9d7);"><i class="fas fa-trophy"></i></div>
                         <div class="notif-info">
                             <h4>Tebrikler! 🎉</h4>
                             <p>3. ders modülünü başarıyla tamamladınız.</p>
                             <span class="notif-time">5 saat önce</span>
                         </div>
                     </div>
-                    <div class="notification-item">
-                        <div class="notif-icon" style="background: #f5576c;"><i class="fas fa-clock"></i></div>
+                    <div class="notification-item" onclick="readNotification(this)">
+                        <div class="notif-icon" style="background: var(--gradient-3);"><i class="fas fa-clock"></i></div>
                         <div class="notif-info">
                             <h4>Hatırlatma</h4>
                             <p>Bu hafta henüz ders çalışmadınız. Hedefinize ulaşmak için devam edin!</p>
                             <span class="notif-time">1 gün önce</span>
                         </div>
                     </div>
-                    <div class="notification-item">
-                        <div class="notif-icon" style="background: #4facfe;"><i class="fas fa-comment"></i></div>
-                        <div class="notif-info">
-                            <h4>Yeni Yorum</h4>
-                            <p>Sorduğunuz soru yanıtlandı: "Python veri tipleri..."</p>
-                            <span class="notif-time">2 gün önce</span>
+                </div>
+            </div>
+
+            <!-- Profile Screen -->
+            <div class="screen" id="profileScreen" style="padding: 0;">
+                <div class="profile-header-bg">
+                    <h2 class="profile-title">Profilim</h2>
+                    <button class="icon-btn light" onclick="showToast('Ayarlar açılıyor...', 'info')"><i class="fas fa-cog"></i></button>
+                </div>
+                
+                <div class="profile-scroll-body">
+                    <div class="profile-card">
+                        <div class="profile-avatar-large">
+                            <span id="profileInitials">ED</span>
+                            <div class="edit-avatar" onclick="showToast('Fotoğraf değiştirme açılıyor', 'info')"><i class="fas fa-camera"></i></div>
+                        </div>
+                        <h3 id="profileName">Enes Daşdan</h3>
+                        <p id="profileEmail">enesdasdan43@gmail.com</p>
+                        
+                        <div class="profile-stats">
+                            <div class="stat">
+                                <strong>4</strong>
+                                <span>Kurs</span>
+                            </div>
+                            <div class="stat">
+                                <strong>12</strong>
+                                <span>Sertifika</span>
+                            </div>
+                            <div class="stat">
+                                <strong>86</strong>
+                                <span>Saat</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-menu">
+                        <div class="profile-menu-item" onclick="showToast('Hesap bilgileri yükleniyor...', 'info')">
+                            <div class="menu-icon" style="background: rgba(67,24,255,0.1); color: var(--primary);"><i class="fas fa-user"></i></div>
+                            <span>Hesap Bilgileri</span>
+                            <i class="fas fa-chevron-right arrow"></i>
+                        </div>
+                        <div class="profile-menu-item" onclick="showToast('Favori kurslarınız yükleniyor...', 'info')">
+                            <div class="menu-icon" style="background: rgba(255,75,107,0.1); color: #ff4b6b;"><i class="fas fa-heart"></i></div>
+                            <span>Favorilerim</span>
+                            <i class="fas fa-chevron-right arrow"></i>
+                        </div>
+                        <div class="profile-menu-item" onclick="showToast('Sertifikalarınız indiriliyor...', 'success')">
+                            <div class="menu-icon" style="background: rgba(57,184,255,0.1); color: #39b8ff;"><i class="fas fa-certificate"></i></div>
+                            <span>Sertifikalarım</span>
+                            <i class="fas fa-chevron-right arrow"></i>
+                        </div>
+                        <div class="profile-menu-item" onclick="toggleDarkMode()">
+                            <div class="menu-icon" style="background: rgba(20,20,20,0.1); color: #333;"><i class="fas fa-moon"></i></div>
+                            <span>Karanlık Mod</span>
+                            <i class="fas fa-toggle-off arrow" id="darkModeToggle" style="font-size: 20px;"></i>
+                        </div>
+                        <div class="profile-menu-item logout" onclick="handleLogout()">
+                            <div class="menu-icon" style="background: rgba(255,59,48,0.1); color: #ff3b30;"><i class="fas fa-sign-out-alt"></i></div>
+                            <span>Çıkış Yap</span>
+                            <i class="fas fa-chevron-right arrow"></i>
                         </div>
                     </div>
                 </div>
-                <div style="height: 80px;"></div>
             </div>
 
         </div>
 
         <!-- Bottom Navigation -->
-        <div class="bottom-nav">
-            <button class="nav-item active" onclick="switchNav(this, 'homeScreen')">
+        <div class="bottom-nav" id="bottomNav">
+            <button class="nav-item active" data-target="homeScreen" onclick="switchNav('homeScreen')">
                 <i class="fas fa-home"></i>
                 <span>Ana Sayfa</span>
             </button>
-            <button class="nav-item" onclick="switchNav(this, 'searchScreen')">
+            <button class="nav-item" data-target="searchScreen" onclick="switchNav('searchScreen')">
                 <i class="fas fa-search"></i>
                 <span>Keşfet</span>
             </button>
-            <button class="nav-item" onclick="switchNav(this, 'notificationsScreen')">
+            <button class="nav-item" data-target="notificationsScreen" onclick="switchNav('notificationsScreen')">
                 <i class="fas fa-bell"></i>
                 <span>Bildirimler</span>
-                <span class="nav-badge">2</span>
+                <span class="nav-badge" id="notifBadge">2</span>
             </button>
-            <button class="nav-item" onclick="switchNav(this, 'profileScreen')">
+            <button class="nav-item" data-target="profileScreen" onclick="switchNav('profileScreen')">
                 <i class="fas fa-user"></i>
                 <span>Profil</span>
             </button>
